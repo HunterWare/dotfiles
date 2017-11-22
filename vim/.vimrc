@@ -32,13 +32,8 @@ command NoPaste set nopaste | set rnu nu
 command SudoWrite w !sudo tee > /dev/null %
 
 
-if has('nvim')
-    set runtimepath+=~/.local/share/dein/repos/github.com/Shougo/dein.vim
-    let dein_path = expand('~/.local/share/dein')
-else
-    set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
-    let dein_path = expand('~/.vim/dein')
-endif
+set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
+let dein_path = expand('~/.vim/dein')
 
 if dein#load_state(dein_path)
     call dein#begin(dein_path)
