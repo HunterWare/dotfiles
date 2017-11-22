@@ -1,0 +1,9 @@
+alias ll='ls -Fl'
+alias la='ls -aFl'
+
+alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs'
+alias em='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
+alias vi='nvim'
+alias vim='stty -ixon && vim'
+alias diff='colordiff -u'
+alias fzf='fzf --preview "highlight -O ansi -l {}"'
