@@ -8,10 +8,10 @@
 -                (powerline-active2 (,@fg-base0 :inherit mode-line))
 -                (powerline-inactive1 (,@fg-base02 ,@bg-base1 :inherit mode-line-inactive))
 -                (powerline-inactive2 (,@fg-base01 :inherit mode-line-inactive))
-+                (powerline-active1 (,@fg-base00 ,@bg-base03 :inherit mode-line))
++                (powerline-active1 (,@fg-base0 ,@bg-base03 :inherit mode-line))
 +                (powerline-active2 (,@fg-base00 ,@bg-base02 :inherit mode-line))
-+                (powerline-inactive1 (,@fg-base01 ,@bg-base02 :inherit mode-line-inactive))
-+                (powerline-inactive2 (,@fg-base01 ,@bg-base03 :inherit mode-line-inactive))
++                (powerline-inactive1 (,@fg-base02 ,@bg-base03 :inherit mode-line-inactive))
++                (powerline-inactive2 (,@fg-base02 ,@bg-base03 :inherit mode-line-inactive))
 +                ;; which-func
 +                (which-func (,@bg-base03))
                  ;; slime
