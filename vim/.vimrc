@@ -31,6 +31,7 @@ command NoPaste set nopaste | set rnu nu
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 command SudoWrite w !sudo tee > /dev/null %
 
+set updatetime=250
 
 set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
 let dein_path = expand('~/.vim/dein')
@@ -63,14 +64,17 @@ if dein#load_state(dein_path)
     "call dein#add('terryma/vim-multiple-cursors', { 'on_map' : { 'n' : ['<C-n>', '<C-p>'], 'x' : '<C-n>'}})
     "call dein#add('easymotion/vim-easymotion')
 
+    call dein#add('airblade/vim-gitgutter')
+
     call dein#add('jsfaint/gen_tags.vim')
     call dein#add('majutsushi/tagbar')
 
     call dein#add('tpope/vim-repeat', {'on_map' : '.'})
+    call dein#add('tpope/vim-fugitive')
     call dein#add('tpope/vim-surround', {
                 \ 'on_map': {'n' : ['cs', 'ds', 'ys'], 'x' : 'S'}, 'depends' : 'vim-repeat'})
-    call dein#add('tpope/vim-fugitive', {
-                \ 'on_cmd': [ 'Git', 'Gstatus', 'Gwrite', 'Glog', 'Gcommit', 'Gblame', 'Ggrep', 'Gdiff', ] })
+    "call dein#add('tpope/vim-fugitive', {
+    "            \ 'on_cmd': [ 'Git', 'Gstatus', 'Gwrite', 'Glog', 'Gcommit', 'Gblame', 'Ggrep', 'Gdiff', ] })
 
     call dein#add('scrooloose/nerdtree', {'on_cmd': 'NERDTreeToggle'})
     call dein#add('scrooloose/nerdcommenter')
@@ -450,5 +454,6 @@ nnoremap <leader>t :Denite -buffer-name=gtags_completion gtags_completion<cr>
 nnoremap <leader>f :Denite -buffer-name=gtags_file gtags_file<cr>
 nnoremap <leader>p :Denite -buffer-name=gtags_path gtags_path<cr>
 
+autocmd QuickFixCmdPost *grep* cwindow
 
 " vim:set ft=vim et sw=4:
