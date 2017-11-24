@@ -1,0 +1,19 @@
+--- solarized-definitions.el.orig	2017-11-23 21:21:11.000000000 -0500
++++ solarized-definitions.el	2017-11-23 21:18:42.000000000 -0500
+@@ -674,10 +674,12 @@
+                 (rainbow-delimiters-depth-8-face (:inherit outline-8))
+                 (rainbow-delimiters-depth-9-face (,@fg-green))
+                 ;; powerline
+-                (powerline-active1 (,@fg-base00 :inherit mode-line))
+-                (powerline-active2 (,@fg-base0 :inherit mode-line))
+-                (powerline-inactive1 (,@fg-base02 ,@bg-base1 :inherit mode-line-inactive))
+-                (powerline-inactive2 (,@fg-base01 :inherit mode-line-inactive))
++                (powerline-active1 (,@fg-base00 ,@bg-base03 :inherit mode-line))
++                (powerline-active2 (,@fg-base00 ,@bg-base02 :inherit mode-line))
++                (powerline-inactive1 (,@fg-base01 ,@bg-base02 :inherit mode-line-inactive))
++                (powerline-inactive2 (,@fg-base01 ,@bg-base03 :inherit mode-line-inactive))
++                ;; which-func
++                (which-func (,@bg-base03))
+                 ;; slime
+                 (slime-error-face (,@fmt-revr ,@fg-red)) ; ErrorMsg
+                 (slime-note-face (,@fg-yellow))

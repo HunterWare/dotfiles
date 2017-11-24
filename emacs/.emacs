@@ -23,19 +23,6 @@
 (require 'powerline)
 (powerline-default-theme)
 
-(setq powerline-color1 "grey22")
-(setq powerline-color2 "grey40")
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(helm-selection ((t (:inherit region :foreground "white"))))
- '(mode-line ((t (:foreground "#030303" :background "#bdbdbd" :box nil))))
- '(mode-line-inactive ((t (:foreground "#f9f9f9" :background "#666666" :box nil))))
- '(which-func ((t nil))))
-
 (load-theme 'solarized t)
 ;(load-theme 'dracula t)
 
@@ -107,9 +94,7 @@
 (setq vc-handled-backends nil)
 
 ;; Which function in modeline
-(load "which-func")
-(which-func-mode)
-(add-to-list 'load-path (concat (expand-file-name "~hware") "/emacs"))
+(which-function-mode 1)
 
 (whitespace-mode)
 
@@ -490,6 +475,9 @@
  ;delete-key-deletes-forward t
 )
 
+;; ============================================================================
+;; Custom
+;; ============================================================================
 ;; Put autosave files (ie #foo#) and backup files (ie foo~) in ~/.emacs.d/.
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -519,7 +507,7 @@
  '(current-language-environment "English")
  '(custom-safe-themes
    (quote
-    ("b181ea0cc32303da7f9227361bb051bbb6c3105bb4f386ca22a06db319b08882" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "67e998c3c23fe24ed0fb92b9de75011b92f35d3e89344157ae0d544d50a63a72" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
+    ("1b27e3b3fce73b72725f3f7f040fd03081b576b1ce8bbdfcb0212920aec190ad" "ff7625ad8aa2615eae96d6b4469fcc7d3d20b2e1ebc63b761a349bebbb9d23cb" "b181ea0cc32303da7f9227361bb051bbb6c3105bb4f386ca22a06db319b08882" "b59d7adea7873d58160d368d42828e7ac670340f11f36f67fa8071dbf957236a" "8db4b03b9ae654d4a57804286eb3e332725c84d7cdab38463cb6b97d5762ad26" "67e998c3c23fe24ed0fb92b9de75011b92f35d3e89344157ae0d544d50a63a72" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(frame-background-mode (quote dark))
  '(gud-gdb-command-name "arm-eabi-gdb" t)
  '(helm-gtags-auto-update t)
@@ -584,8 +572,10 @@
    (quote
     (face trailing tabs spaces lines newline empty indentation space-after-tab space-before-tab tab-mark))))
 
-
-;; ============================================================================
-;; Custom
-;; ============================================================================
-
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(helm-selection ((t (:inherit region :foreground "white")))))
+; '(which-func ((t nil))))
