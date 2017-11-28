@@ -7,13 +7,14 @@ alias vi='nvim'
 alias vim='stty -ixon && vim'
 alias diff='colordiff -u'
 alias fzf='fzf --preview "highlight -O ansi -l {}"'
+alias ssh='LC_USER=$USER ssh'
 
 function connect_with_user() {
     if [ -v $1 ]; then
         echo 'Missing host!!!!'
     else
         echo "Host:$1"
-        LC_USER=$USER ssh -x $1 -t tmux -f '~/.tmux-iTerm.conf' -CC
+        ssh -x $1 -t tmux -f '~/.tmux-iTerm.conf' -CC
     fi
 }
 alias connect='connect_with_user'
@@ -22,7 +23,7 @@ function attach_with_user() {
     if [ -v $1 ]; then
         echo 'Missing host!!!!'
     else
-        LC_USER=$USER ssh -x $1 -t tmux -f '~/.tmux-iTerm.conf' -CC attach
+        ssh -x $1 -t tmux -f '~/.tmux-iTerm.conf' -CC attach
     fi
 }
 alias attach='attach_with_user'

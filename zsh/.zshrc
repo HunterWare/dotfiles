@@ -101,7 +101,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Use and set LC_USER so that SSH prompts will be right
 DEFAULT_USER=${LC_USER:-$USER}
-export LC_USER=$USER
+unset LC_USER
 
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
 POWERLEVEL9K_SHORTEN_DELIMITER=""
