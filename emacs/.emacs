@@ -13,7 +13,7 @@
  (lambda (package)
    (or (package-installed-p package)
        (package-install package)))
- '(powerline helm-ag color-theme-solarized dracula-theme delight realgud diminish helm-descbinds helm-git helm-ls-git helm-projectile highlight-indent-guides magit helm-cscope helm-gtags helm zenburn-theme nlinum diffview other-frame-window python))
+ '(git-gutter vimrc-mode powerline helm-ag color-theme-solarized dracula-theme delight realgud diminish helm-descbinds helm-git helm-ls-git helm-projectile highlight-indent-guides magit helm-cscope helm-gtags helm zenburn-theme nlinum diffview other-frame-window python))
 
 ;; ============================================================================
 ;; Theme
@@ -42,10 +42,19 @@
       :action (lambda (cand) (find-file cand))))
   (add-to-list 'helm-projectile-sources-list helm-source-file-not-found t))
 
+(setq projectile-mode-line
+         '(:eval (format " Projectile[%s]"
+                         (projectile-project-name))))
 
 (global-set-key (kbd "M-x") #'helm-M-x)
 (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-(global-set-key (kbd "C-x C-f") #'helm-projectile)
+
+(defun smart-files ()
+  (interactive)
+  (if (projectile-project-p)
+    (helm-projectile-find-file-dwim)
+    (helm-find-files)))
+(global-set-key (kbd "C-x C-f") #'smart-files)
 
 ;(setq helm-M-x-fuzzy-match t)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
@@ -98,8 +107,22 @@
 
 (whitespace-mode)
 
+(global-git-gutter-mode +1)
+(setq git-gutter:modified-sign "~")
+(setq git-gutter:unchanged-sign " ")
+(set-face-foreground 'git-gutter:modified "yellow")
+(set-face-background 'git-gutter:modified "black")
+(set-face-background 'git-gutter:added "black")
+(set-face-background 'git-gutter:deleted "black")
+(set-face-background 'git-gutter:unchanged "black")
+(add-hook 'magit-post-refresh-hook
+          #'git-gutter:update-all-windows)
+;(git-gutter:linum-setup)
+
 (require 'delight)
 (delight '((abbrev-mode " Abv" abbrev)
+           (makefile-mode " Make" "Makefile")
+           (git-gutter-mode " GitG" "git-gutter")
            (helm-mode " Hm" "helm-mode")
            (python-mode "Py" "python-mode")
            (helm-gtags-mode " HmG" "helm-gtags")
@@ -226,6 +249,7 @@
         ("\\.s\\'" . asm-mode)
         ("\\.S\\'" . asm-mode)
         ("\\.inc\\'" . asm-mode)
+        ("\\.vim\\(rc\\)?\\'" . vimrc-mode)
         ("ChangeLog\\'" . change-log-mode)
         ("change\\.log\\'" . change-log-mode)
         ("changelo\\'" . change-log-mode)
@@ -253,6 +277,7 @@
         ("[]>:/\\]\\..*emacs\\'" . emacs-lisp-mode)
         ("\\`\\..*emacs\\'" . emacs-lisp-mode)
         ("[:/]_emacs\\'" . emacs-lisp-mode)
+        ("\\.\\(v\\|vpl\\|vh\\|sv\\|svh\\)'" . verilog-mode)
         ("\\.py\\'" . python-mode)
         ("\\.rb\\'" . ruby-mode)))
 
