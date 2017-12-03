@@ -9,6 +9,13 @@ alias diff='colordiff -u'
 alias fzf='fzf --preview "highlight -O ansi -l {}"'
 alias ssh='LC_USER=$USER ssh'
 
-alias connect="ssh -x dev -t tmux -f '~/.tmux-iTerm.conf' -CC"
-alias attach="ssh -x dev -t tmux -f '~/.tmux-iTerm.conf -CC attach"
+function attach_with_user() {
+    if [ -v $1 ]; then
+        echo 'Usage: attach [host]'
+    else
+        ssh -x $1 -t tmux -f '~/.tmux-iTerm.conf' -CC attach || \
+            ssh -x $1 -t tmux -f '~/.tmux-iTerm.conf' -CC
+    fi
+}
+alias attach='attach_with_user'
 
