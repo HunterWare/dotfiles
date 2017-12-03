@@ -178,51 +178,6 @@
 ;(setq tramp-default-method "ssh")
 
 ;; ============================================================================
-;; XCSCOPE
-;; ===========================================================================
-
-;; (require 'xcscope)
-;; (cscope-setup)
-
-;; ;(define-key global-map "\C-\\" nil)
-;; (add-hook 'cscope-minor-mode-hooks
-;;           '(lambda ()
-;; 	     (define-key global-map "\C-\\" nil)
-;;              (define-key global-map "\C-\\s" 'cscope-find-this-symbol)
-
-;; 	     (define-key global-map "\C-\\s" 'cscope-find-this-symbol)
-;; 	     (define-key global-map "\C-\\d" 'cscope-find-global-definition)
-;; 	     (define-key global-map "\C-\\g" 'cscope-find-global-definition)
-;; 	     (define-key global-map "\C-\\G" 'cscope-find-global-definition-no-prompting)
-;; 	     (define-key global-map "\C-\\=" 'cscope-find-assignments-to-this-symbol)
-;; 	     (define-key global-map "\C-\\c" 'cscope-find-functions-calling-this-function)
-;; 	     (define-key global-map "\C-\\C" 'cscope-find-called-functions)
-;; 	     (define-key global-map "\C-\\t" 'cscope-find-this-text-string)
-;; 	     (define-key global-map "\C-\\e" 'cscope-find-egrep-pattern)
-;; 	     (define-key global-map "\C-\\f" 'cscope-find-this-file)
-;; 	     (define-key global-map "\C-\\i" 'cscope-find-files-including-file)
-
-;; 	     (define-key global-map "\C-\\b" 'cscope-display-buffer)
-;; 	     (define-key global-map "\C-\\B" 'cscope-display-buffer-toggle)
-;; 	     (define-key global-map "\C-\\n" 'cscope-history-forward-line-current-result)
-;; 	     (define-key global-map "\C-\\N" 'cscope-history-forward-file-current-result)
-;; 	     (define-key global-map "\C-\\p" 'cscope-history-backward-line-current-result)
-;; 	     (define-key global-map "\C-\\P" 'cscope-history-backward-file-current-result)
-;; 	     (define-key global-map "\C-\\u" 'cscope-pop-mark)
-
-;; 	     (define-key global-map "\C-\\a" 'cscope-set-initial-directory)
-;; 	     (define-key global-map "\C-\\A" 'cscope-unset-initial-directory)
-
-;; 	     (define-key global-map "\C-\\L" 'cscope-create-list-of-files-to-index)
-;; 	     (define-key global-map "\C-\\I" 'cscope-index-files)
-;; 	     (define-key global-map "\C-\\E" 'cscope-edit-list-of-files-to-index)
-;; 	     (define-key global-map "\C-\\W" 'cscope-tell-user-about-directory)
-;; 	     (define-key global-map "\C-\\S" 'cscope-tell-user-about-directory)
-;; 	     (define-key global-map "\C-\\T" 'cscope-tell-user-about-directory)
-;; 	     (define-key global-map "\C-\\D" 'cscope-dired-directory)
-;; 	     ))
-
-;; ============================================================================
 ;; Modes
 ;; ============================================================================
 
