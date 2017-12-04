@@ -10,13 +10,15 @@ alias ag='ag --color-line-number="0;33" --color-match="0;35" --color-path="0;97"
 alias fzf='fzf --preview "highlight -O ansi -l {}"'
 alias ssh='LC_USER=$USER ssh'
 
-function attach_with_user() {
-    if [ -v $1 ]; then
+function attach_or_connect() {
+    if [[ $# -ne 1 ]]; then
         echo 'Usage: attach [host]'
     else
-        ssh -x $1 -t tmux -f '~/.tmux-iTerm.conf' -CC attach || \
+        ssh -x $1 -t tmux -f '~/.tmux-iTerm.conf' -CC attach
+        if [ "$?" -eq "1" ]; then
             ssh -x $1 -t tmux -f '~/.tmux-iTerm.conf' -CC
+        fi
     fi
 }
-alias attach='attach_with_user'
+alias attach='attach_or_connect'
 
