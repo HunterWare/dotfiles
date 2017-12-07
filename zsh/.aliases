@@ -1,25 +1,17 @@
 alias ll='ls -Fl'
 alias la='ls -aFl'
 
-alias emacs='~/Applications/Emacs.app/Contents/MacOS/Emacs'
+alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs'
 alias em='emacs -nw'
+
 alias vi='nvim'
 alias vimdiff='nvim -d'
 alias vim='stty -ixon && vim'
+
 alias diff='colordiff -u'
+
 alias ag='ag --color-line-number="0;33" --color-match="0;35" --color-path="0;97"'
 alias fzf='fzf --preview "highlight -O ansi -l {}"'
+
 alias ssh='LC_USER=$USER ssh'
-
-function attach_or_connect() {
-    if [[ $# -ne 1 ]]; then
-        echo 'Usage: attach [host]'
-    else
-        ssh -x $1 -t tmux -f '~/.tmux-iTerm.conf' -CC attach
-        if [ "$?" -eq "1" ]; then
-            ssh -x $1 -t tmux -f '~/.tmux-iTerm.conf' -CC
-        fi
-    fi
-}
 alias attach='attach_or_connect'
-

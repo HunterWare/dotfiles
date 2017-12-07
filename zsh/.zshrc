@@ -115,6 +115,8 @@ POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+[ -f ~/.functions ] && source ~/.functions
 [ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.exports ] && source ~/.exports
 
+[ -f ~/.localrc ] && source ~/.localrc

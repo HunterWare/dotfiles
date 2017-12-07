@@ -1,0 +1,32 @@
+# pathmunge VAR_NAME /path/to/stuff (after)
+pathmunge() {
+    local pathlist
+    eval "pathlist=\"\$$1\"" 2>/dev/null || return 1
+    case ":$pathlist:" in
+        *:"$2":*)
+            ;;
+        "::")
+            eval "$1=\"$2\"" 2>/dev/null || return 1
+            ;;
+        *)
+            if [ "$3" = "after" ]; then
+                eval "$1=\"$pathlist:$2\"" 2>/dev/null || return 1
+            else
+                eval "$1=\"$2:$pathlist\"" 2>/dev/null || return 1
+            fi
+            ;;
+    esac
+    return 0
+}
+
+# attach_or_connect HOST
+function attach_or_connect() {
+    if [[ $# -ne 1 ]]; then
+        echo 'Usage: attach [host]'
+    else
+        ssh -x $1 -t tmux -f '~/.tmux-iTerm.conf' -CC attach
+        if [ "$?" -eq "1" ]; then
+            ssh -x $1 -t tmux -f '~/.tmux-iTerm.conf' -CC
+        fi
+    fi
+}
