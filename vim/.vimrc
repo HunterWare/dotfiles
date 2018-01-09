@@ -8,6 +8,7 @@ let maplocalleader = ","
 nnoremap <leader>, :normal ,<CR>:<CR>
 
 inoremap jk <ESC>
+tnoremap jk  <C-\><C-n>
 "nnoremap ; :
 
 " BS goto previous buffer
@@ -49,8 +50,6 @@ if dein#load_state(dein_path)
     call dein#add('Shougo/vimshell')
     call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 
-    "call dein#add('ctrlpvim/ctrlp.vim', { 'on_cmd' : 'CtrlPMRUFiles' })
-    "call dein#add('FelikZ/ctrlp-py-matcher')
     call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
     call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
 
@@ -71,10 +70,9 @@ if dein#load_state(dein_path)
 
     call dein#add('tpope/vim-repeat', {'on_map' : '.'})
     call dein#add('tpope/vim-fugitive')
+                ", { 'on_cmd': [ 'Git', 'Gstatus', 'Gwrite', 'Glog', 'Gcommit', 'Gblame', 'Ggrep', 'Gdiff', ] })
     call dein#add('tpope/vim-surround', {
                 \ 'on_map': {'n' : ['cs', 'ds', 'ys'], 'x' : 'S'}, 'depends' : 'vim-repeat'})
-    "call dein#add('tpope/vim-fugitive', {
-    "            \ 'on_cmd': [ 'Git', 'Gstatus', 'Gwrite', 'Glog', 'Gcommit', 'Gblame', 'Ggrep', 'Gdiff', ] })
 
     call dein#add('scrooloose/nerdtree', {'on_cmd': 'NERDTreeToggle'})
     call dein#add('scrooloose/nerdcommenter')
@@ -340,53 +338,20 @@ let g:fzf_action = {
     \ }
 nnoremap <c-p> :FZF<cr>
 
-
-" =============== ctrlp ===============
-let g:ctrlp_map = '<C-p>'
-let g:ctrlp_cmd = 'CtrlPMixed'
-
-let g:ctrlp_working_path_mode = 'ra'
-"nnoremap <silent> <D-t> :CtrlP<CR>
-"nnoremap <silent> <D-r> :CtrlPMRU<CR>
-let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\.git$\|\.hg$\|\.svn$',
-            \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
-
-"if executable('rp')
-"    let s:ctrlp_fallback = 'rg %s --hidden --color=never --glob ""'
-"    let g:ctrlp_use_caching = 0
-"elseif executable('ag')
-if executable('ag')
-    let s:ctrlp_fallback = 'ag %s --nocolor --hidden -l -g ""'
-    let g:ctrlp_use_caching = 0
-elseif executable('ack-grep')
-    let s:ctrlp_fallback = 'ack-grep %s --nocolor -f'
-elseif executable('ack')
-    let s:ctrlp_fallback = 'ack %s --nocolor -f'
-elseif WINDOWS()
-    let s:ctrlp_fallback = 'dir %s /-n /b /s /a-d'
-else
-    let s:ctrlp_fallback = 'find %s -type f'
-endif
-
-let g:ctrlp_user_command = {
-            \ 'types': {
-            \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-            \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-            \ },
-            \ 'fallback': s:ctrlp_fallback
-            \ }
-
-" CtrlP extensions
-" let g:ctrlp_extensions = ['funky']
-" nnoremap <Leader>fu :CtrlPFunky<Cr>
-
-let g:ctrlp_by_filename = 1
-let g:ctrlp_match_window = 'bottom,order:ttb'
-let g:ctrlp_switch_buffer = 0
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-
+" Augmenting Ag command using fzf#vim#with_preview function
+"   * fzf#vim#with_preview([[options], preview window, [toggle keys...]])
+"     * For syntax-highlighting, Ruby and any of the following tools are required:
+"       - Highlight: http://www.andre-simon.de/doku/highlight/en/highlight.php
+"       - CodeRay: http://coderay.rubychan.de/
+"       - Rouge: https://github.com/jneen/rouge
+"
+"   :Ag  - Start fzf with hidden preview window that can be enabled with "?" key
+"   :Ag! - Start fzf in fullscreen and display the preview window above
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>,
+  \                 <bang>0 ? fzf#vim#with_preview('up:60%')
+  \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \                 <bang>0)
 
 " =============== Deoplete ===============
 let g:deoplete#enable_at_startup = 1
@@ -455,5 +420,10 @@ nnoremap <leader>f :Denite -buffer-name=gtags_file gtags_file<cr>
 nnoremap <leader>p :Denite -buffer-name=gtags_path gtags_path<cr>
 
 autocmd QuickFixCmdPost *grep* cwindow
+
+
+" =============== Terminal ===============
+"tnoremap <Esc> <C-\><C-n>
+
 
 " vim:set ft=vim et sw=4:
