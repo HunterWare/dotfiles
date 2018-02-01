@@ -109,9 +109,13 @@ POWERLEVEL9K_SHORTEN_STRATEGY="truncate_unique_from_left"
 POWERLEVEL9K_DIR_SHOW_WRITABLE=true
 POWERLEVEL9K_DIR_NOT_WRITABLE_BACKGROUND='red'
 
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time status root_indicator background_jobs history time)
+POWERLEVEL9K_STATUS_OK=false
 
 POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
+
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv vcs background_jobs status command_execution_time)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
+#POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time status root_indicator background_jobs history time)
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
