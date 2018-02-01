@@ -124,3 +124,6 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 [ -f ~/.exports ] && source ~/.exports
 
 [ -f ~/.localrc ] && source ~/.localrc
+
+# clean up exit code from above sources
+:
