@@ -47,17 +47,16 @@
                          (projectile-project-name))))
 
 (global-set-key (kbd "M-x") #'helm-M-x)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x f") #'helm-find-files)
 
 (defun smart-files ()
   (interactive)
   (if (projectile-project-p)
     (helm-projectile-find-file-dwim)
-    (helm-find-files)))
+    (helm-for-files)))
 (global-set-key (kbd "C-x C-f") #'smart-files)
-
-;(setq helm-M-x-fuzzy-match t)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
 
 (add-hook 'c-mode-hook 'helm-gtags-mode)
 (add-hook 'c++-mode-hook 'helm-gtags-mode)
@@ -115,8 +114,7 @@
 (set-face-background 'git-gutter:added "black")
 (set-face-background 'git-gutter:deleted "black")
 (set-face-background 'git-gutter:unchanged "black")
-(add-hook 'magit-post-refresh-hook
-          #'git-gutter:update-all-windows)
+(add-hook 'magit-post-refresh-hook #'git-gutter:update-all-windows)
 ;(git-gutter:linum-setup)
 
 (require 'delight)
@@ -513,7 +511,7 @@
  '(mouse-yank-at-point t)
  '(package-selected-packages
    (quote
-    (powerline helm-ag color-theme-solarized dracula-theme delight realgud diminish helm-descbinds helm-git helm-ls-git helm-projectile highlight-indent-guides magit helm-cscope helm-gtags helm zenburn-theme nlinum diffview other-frame-window python ##)))
+    (fzf powerline helm-ag color-theme-solarized dracula-theme delight realgud diminish helm-descbinds helm-git helm-ls-git helm-projectile highlight-indent-guides magit helm-cscope helm-gtags helm zenburn-theme nlinum diffview other-frame-window python ##)))
  '(paren-mode (quote blink-paren) nil (paren))
  '(projectile-mode-line
    (quote
