@@ -18,7 +18,7 @@
  (lambda (package)
    (or (package-installed-p package)
        (package-install package)))
- '(git-gutter vimrc-mode powerline helm-ag color-theme-solarized dracula-theme delight realgud diminish helm-descbinds helm-git helm-ls-git helm-projectile highlight-indent-guides magit helm-cscope helm-gtags helm zenburn-theme nlinum diffview other-frame-window python))
+ '(fzf git-gutter vimrc-mode ag auto-compile helm-fuzzy-find helm-flx powerline helm-ag color-theme-solarized dracula-theme delight realgud diminish helm-descbinds helm-git helm-ls-git helm-projectile highlight-indent-guides magit helm-cscope helm-gtags helm zenburn-theme nlinum diffview other-frame-window python ))
 
 ;; ============================================================================
 ;; Theme
