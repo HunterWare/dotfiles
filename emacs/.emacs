@@ -7,7 +7,12 @@
 ;; You may delete these explanatory comments.
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+
+(setq load-prefer-newer t)
 (package-initialize)
+(require 'auto-compile)
+(auto-compile-on-load-mode)
+(auto-compile-on-save-mode)
 
 (mapc
  (lambda (package)
@@ -31,6 +36,7 @@
 ;; ============================================================================
 (require 'helm-config)
 (projectile-global-mode)
+(setq helm-mode-fuzzy-match t)
 (setq projectile-completion-system 'helm)
 (helm-projectile-on)
 (setq projectile-enable-caching t)
@@ -511,7 +517,7 @@
  '(mouse-yank-at-point t)
  '(package-selected-packages
    (quote
-    (fzf powerline helm-ag color-theme-solarized dracula-theme delight realgud diminish helm-descbinds helm-git helm-ls-git helm-projectile highlight-indent-guides magit helm-cscope helm-gtags helm zenburn-theme nlinum diffview other-frame-window python ##)))
+    (fzf git-gutter vimrc-mode ag auto-compile helm-fuzzy-find helm-flx powerline helm-ag color-theme-solarized dracula-theme delight realgud diminish helm-descbinds helm-git helm-ls-git helm-projectile highlight-indent-guides magit helm-cscope helm-gtags helm zenburn-theme nlinum diffview other-frame-window python ##)))
  '(paren-mode (quote blink-paren) nil (paren))
  '(projectile-mode-line
    (quote
