@@ -407,24 +407,24 @@
 
 
 ;; Setup for OSX
-;(global-set-key (kbd "ESC <left>") 'shrink-window-horizontally)
-;(global-set-key (kbd "ESC <right>") 'enlarge-window-horizontally)
-;(global-set-key (kbd "ESC <down>") 'shrink-window)
-;(global-set-key (kbd "ESC <up>") 'enlarge-window)
-;(global-set-key (kbd "<home>") 'beginning-of-line)
-;(global-set-key (kbd "<end>") 'end-of-line)
+(global-set-key (kbd "ESC <left>") 'shrink-window-horizontally)
+(global-set-key (kbd "ESC <right>") 'enlarge-window-horizontally)
+(global-set-key (kbd "ESC <down>") 'shrink-window)
+(global-set-key (kbd "ESC <up>") 'enlarge-window)
+(global-set-key (kbd "<home>") 'beginning-of-line)
+(global-set-key (kbd "<end>") 'end-of-line)
 
 ;; Setup for recent emacs
 ;(define-key global-map [(control left)]  'backward-word)
 ;(define-key global-map [(control right)] 'forward-word)
 ;(define-key global-map [(control down)]  'forward-paragraph)
 ;(define-key global-map [(control up)]    'backward-paragraph)
-(define-key global-map [(meta left)]  'shrink-window-horizontally)
-(define-key global-map [(meta right)] 'enlarge-window-horizontally)
-(define-key global-map [(meta down)]  'shrink-window)
-(define-key global-map [(meta up)]    'enlarge-window)
-(global-set-key (kbd "<home>") 'beginning-of-line)
-(global-set-key (kbd "<end>") 'end-of-line)
+;(define-key global-map [(meta left)]  'shrink-window-horizontally)
+;(define-key global-map [(meta right)] 'enlarge-window-horizontally)
+;(define-key global-map [(meta down)]  'shrink-window)
+;(define-key global-map [(meta up)]    'enlarge-window)
+;(global-set-key (kbd "<home>") 'beginning-of-line)
+;(global-set-key (kbd "<end>") 'end-of-line)
 
 ;; Setup for older emacs
 ;(global-set-key (kbd "M-[ 1 ; 5 D") 'backward-word)
