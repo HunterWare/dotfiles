@@ -1,4 +1,8 @@
 if &compatible
+inoremap jk <ESC>
+if has('nvim')
+    tnoremap jk  <C-\><C-n>
+endif
     set nocompatible
 endif
 
@@ -8,7 +12,9 @@ let maplocalleader = ","
 nnoremap <leader>, :normal ,<CR>:<CR>
 
 inoremap jk <ESC>
-tnoremap jk  <C-\><C-n>
+if has('nvim')
+    tnoremap jk  <C-\><C-n>
+endif
 "nnoremap ; :
 
 " BS goto previous buffer
@@ -26,13 +32,16 @@ nmap <silent> <leader>/ :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR
 " Autoindent whole file and return cursor to position
 nmap <leader>ai mzgg=G`z`i
 
-command Paste set paste | set nornu nonu
-command NoPaste set nopaste | set rnu nu
+command Paste set paste | GitGutterDisable | set nornu nonu
+command NoPaste set nopaste | GitGutterEnable | set rnu nu
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 command SudoWrite w !sudo tee > /dev/null %
 
 set updatetime=250
+
+set undofile
+set undodir=~/.vim/undo/
 
 set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
 let dein_path = expand('~/.vim/dein')
@@ -233,13 +242,13 @@ if &t_Co == 8 && $TERM !~# '^linux\|^Eterm'
     set t_Co=16
 endif
 
-inoremap <C-U> <C-G>u<C-U>
+"inoremap <C-U> <C-G>u<C-U>
 
-if has('clipboard')
-    if has('unnamedplus')  " When possible use + register for copy-paste
-        set clipboard=unnamed,unnamedplus
-    else         " On mac and Windows, use * register for copy-paste
-        set clipboard=unnamed
+" yank to clipboard
+if has("clipboard")
+    set clipboard=unnamed " copy to the system clipboard (+ reg)
+    if has("unnamedplus") " X11 support (* reg)
+        set clipboard+=unnamedplus
     endif
 endif
 
@@ -310,6 +319,13 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+let g:syntastic_c_include_dirs = [ $PROJ_ROOT.'/sw/ifcs/include',
+                                \  $PROJ_ROOT.'/sw/ifcs/drivers/src/linux_module/ipd_enet',
+                                \  $PROJ_ROOT.'/sw/pen/include',
+                                \  $PROJ_ROOT.'/sw/pen/include/emulation',
+                                \  $TARGET_KERNEL.'/include',
+                                \ '../include',
+                                \'include' ]
 
 " =============== tagbar ===============
 nnoremap <silent> <leader>tt :TagbarToggle<CR>
@@ -329,6 +345,9 @@ nnoremap <silent> <c-k> :TmuxNavigateDown<cr>
 nnoremap <silent> <c-j> :TmuxNavigateUp<cr>
 nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <c-\> :TmuxNavigatePrevious<cr>
+
+" Disable tmux navigator when zooming the Vim pane
+let g:tmux_navigator_disable_when_zoomed = 1
 
 
 " =============== fzf ===============
