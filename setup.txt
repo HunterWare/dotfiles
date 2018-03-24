@@ -31,16 +31,13 @@ sudo pip3 install typing neovim
 
 ########## Ubuntu 16.04
 ##########
-sudo apt install build-essential global emacs git silversearcher-ag vim cscope zsh highlight
+sudo apt install build-essential global emacs git silversearcher-ag vim cscope zsh highlight curl
 
 # install neovim
 sudo apt install software-properties-common
 sudo add-apt-repository ppa:neovim-ppa/stable
 sudo apt update
-sudo apt install neovim
-sudo apt install python-dev python-pip python3-dev python3-pip
-sudo apt install python3-neovim
-sudo apt install lua-nvim
+sudo apt install neovim python-dev python-pip python3-dev python3-pip lua-nvim
 pip3 install neovim
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
 sudo update-alternatives --config vi
@@ -59,6 +56,21 @@ sudo mkdir /mnt/hgfs
 sudo mount -t fuse.vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other
 sudo vi /etc/fstab
     # Add ".host:/ /mnt/hgfs fuse.vmhgfs-fuse allow_other 0 0"
+
+
+########## Raspberry Pi
+##########
+sudo apt install build-essential global emacs git silversearcher-ag vim cscope zsh highlight stow colordiff tmux
+
+# neovim
+sudo apt install git libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
+mkdir tools && cd tools
+git clone https://github.com/neovim/neovim.git
+cd neovim
+make CMAKE_BUILD_TYPE=RelWithDebInfo
+sudo make install
+
+pip3 install neovim
 
 ########## Setup tools
 ##########
@@ -83,7 +95,9 @@ git clone https://github.com/hunterware/powerlevel9k.git ~/.oh-my-zsh/custom/the
 # Stow
 git clone https://github.com/HunterWare/dotfiles .dotfiles
 cd .dotfiles
-stow vim emacs zsh
+mv ~/.bashrc ~/.bashrc.orig
+mv ~/.zshrc ~/.zshrc.orig
+stow bash emacs tmux vim zsh
 
 # Fix solarized theme
 patch -p1 ~/.emacs.d/elpa/color-theme-solarized-20171024.825/solarized-definitions.el < solarized-definitions.el.diff
