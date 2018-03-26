@@ -64,7 +64,7 @@ sudo apt install build-essential global emacs git silversearcher-ag vim cscope z
 
 # neovim
 sudo apt install git libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
-mkdir tools && cd tools
+mkdir ~/tools && cd ~/tools
 git clone https://github.com/neovim/neovim.git
 cd neovim
 make CMAKE_BUILD_TYPE=RelWithDebInfo
