@@ -6,7 +6,7 @@
 # brew install
 brew install htop ssh-copy-id xtitle mosh
 brew install vim --with-override-system-vi --with-python3 --with-luajit
-brew install colordiff ripgrep vim cscope neovim sift fzf xz stow global telnet highlight mas the_silver_searcher most
+brew install colordiff ripgrep vim cscope neovim sift fzf xz stow global telnet highlight mas the_silver_searcher
 sudo pip3 install neovim
 
 # Update iTerm selection background
@@ -25,13 +25,13 @@ URL=https://copr.fedorainfracloud.org/coprs/outman/emacs/repo/epel-7/outman-emac
 curl -# -m 8 $URL -o /etc/yum.repos.d/emacs.repo
 yum update emacs-nox
 # Packages
-sudo yum install colordiff cscope neovim stow global highlight the_silver_searcher emacs-nox ctags most
+sudo yum install colordiff cscope neovim stow global highlight the_silver_searcher emacs-nox ctags
 sudo yum install python2-pip pythong34-devel python34-pip
 sudo pip3 install typing neovim
 
 ########## Ubuntu 16.04
 ##########
-sudo apt install build-essential global emacs git silversearcher-ag vim cscope zsh highlight curl most
+sudo apt install build-essential global emacs git silversearcher-ag vim cscope zsh highlight curl
 
 # install neovim
 sudo apt install software-properties-common
@@ -97,7 +97,7 @@ git clone https://github.com/HunterWare/dotfiles .dotfiles
 cd .dotfiles
 mv ~/.bashrc ~/.bashrc.orig
 mv ~/.zshrc ~/.zshrc.orig
-stow bash emacs tmux vim zsh most
+stow bash emacs tmux vim zsh
 
 # Fix solarized theme
 patch -p1 ~/.emacs.d/elpa/color-theme-solarized-20171024.825/solarized-definitions.el < solarized-definitions.el.diff
