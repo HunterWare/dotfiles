@@ -66,6 +66,7 @@ plugins=(
   brew
   osx
   zsh-syntax-highlighting
+  colored-man-pages
 )
 
 source $ZSH/oh-my-zsh.sh
