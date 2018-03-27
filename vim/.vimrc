@@ -70,7 +70,10 @@ if dein#load_state(dein_path)
 
     "call dein#add('Raimondi/delimitMate', {'on_map' : { 'i' : ['(', '[', '{' ] }})
     "call dein#add('terryma/vim-multiple-cursors', { 'on_map' : { 'n' : ['<C-n>', '<C-p>'], 'x' : '<C-n>'}})
+
     "call dein#add('easymotion/vim-easymotion')
+    call dein#add('justinmk/vim-sneak', {'depends' : 'vim-repeat'})
+    call dein#add('haya14busa/incsearch.vim')
 
     call dein#add('airblade/vim-gitgutter')
 
@@ -78,8 +81,8 @@ if dein#load_state(dein_path)
     call dein#add('majutsushi/tagbar')
 
     call dein#add('tpope/vim-repeat', {'on_map' : '.'})
-    call dein#add('tpope/vim-fugitive')
-                ", { 'on_cmd': [ 'Git', 'Gstatus', 'Gwrite', 'Glog', 'Gcommit', 'Gblame', 'Ggrep', 'Gdiff', ] })
+    call dein#add('tpope/vim-fugitive', {
+                \ 'on_cmd': ['Git', 'Gstatus', 'Gwrite', 'Glog', 'Gcommit', 'Gblame', 'Ggrep', 'Gdiff']})
     call dein#add('tpope/vim-surround', {
                 \ 'on_map': {'n' : ['cs', 'ds', 'ys'], 'x' : 'S'}, 'depends' : 'vim-repeat'})
 
@@ -155,11 +158,9 @@ set iskeyword-=#                    " '#' is an end of word designator
 set iskeyword-=-                    " '-' is an end of word designator
 
 set winminheight=0              " Windows can be 0 line high
-set backspace=indent,eol,start  " Backspace for dummies
 set linespace=0                 " No extra spaces between rows
 set showmatch                   " Show matching brackets/parenthesis
 set incsearch                   " Find as you type search
-set hlsearch                    " Highlight search terms
 set ignorecase                  " Case insensitive search
 set smartcase                   " /Case sensitive when uc present
 set gdefault
@@ -254,6 +255,28 @@ endif
 
 " Always switch to the current file directory
 autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+
+
+" =============== incsearch ===============
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
+set hlsearch
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+
+
+" =============== vim-sneak ===============
+
+let g:sneak#label = 1
+map f <Plug>Sneak_s
+map F <Plug>Sneak_S
 
 
 " =============== grep ===============
