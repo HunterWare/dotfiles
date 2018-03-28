@@ -1,8 +1,4 @@
 if &compatible
-inoremap jk <ESC>
-if has('nvim')
-    tnoremap jk  <C-\><C-n>
-endif
     set nocompatible
 endif
 
@@ -12,13 +8,7 @@ let maplocalleader = ","
 nnoremap <leader>, :normal ,<CR>:<CR>
 
 inoremap jk <ESC>
-if has('nvim')
-    tnoremap jk  <C-\><C-n>
-endif
 "nnoremap ; :
-
-" BS goto previous buffer
-nnoremap <BS> <C-^>
 
 autocmd InsertEnter * set timeoutlen=250
 autocmd InsertLeave * set timeoutlen=1000
@@ -69,11 +59,8 @@ if dein#load_state(dein_path)
     call dein#add('christoomey/vim-tmux-navigator')
 
     "call dein#add('Raimondi/delimitMate', {'on_map' : { 'i' : ['(', '[', '{' ] }})
-    "call dein#add('terryma/vim-multiple-cursors', { 'on_map' : { 'n' : ['<C-n>', '<C-p>'], 'x' : '<C-n>'}})
-
-    "call dein#add('easymotion/vim-easymotion')
-    call dein#add('justinmk/vim-sneak', {'depends' : 'vim-repeat'})
-    call dein#add('haya14busa/incsearch.vim')
+    "call dein#add('terryma/vim-multiple-cursors', {
+    "       \ 'on_map' : { 'n' : ['<C-n>', '<C-p>'], 'x' : '<C-n>'}})
 
     call dein#add('airblade/vim-gitgutter')
 
@@ -82,9 +69,13 @@ if dein#load_state(dein_path)
 
     call dein#add('tpope/vim-repeat', {'on_map' : '.'})
     call dein#add('tpope/vim-fugitive', {
-                \ 'on_cmd': ['Git', 'Gstatus', 'Gwrite', 'Glog', 'Gcommit', 'Gblame', 'Ggrep', 'Gdiff']})
+            \ 'on_cmd': ['Git', 'Gstatus', 'Glog', 'Gcommit', 'Gblame', 'Ggrep', 'Gdiff']})
     call dein#add('tpope/vim-surround', {
-                \ 'on_map': {'n' : ['cs', 'ds', 'ys'], 'x' : 'S'}, 'depends' : 'vim-repeat'})
+            \ 'on_map': {'n' : ['cs', 'ds', 'ys'], 'x' : 'S'}, 'depends' : 'vim-repeat'})
+
+    "call dein#add('easymotion/vim-easymotion')
+    call dein#add('justinmk/vim-sneak', {'depends' : 'vim-repeat'})
+    call dein#add('haya14busa/incsearch.vim')
 
     call dein#add('scrooloose/nerdtree', {'on_cmd': 'NERDTreeToggle'})
     call dein#add('scrooloose/nerdcommenter')
@@ -350,6 +341,7 @@ let g:syntastic_c_include_dirs = [ $PROJ_ROOT.'/sw/ifcs/include',
                                 \ '../include',
                                 \'include' ]
 
+
 " =============== tagbar ===============
 nnoremap <silent> <leader>tt :TagbarToggle<CR>
 
@@ -394,6 +386,7 @@ command! -bang -nargs=* Ag
   \                 <bang>0 ? fzf#vim#with_preview('up:60%')
   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
   \                 <bang>0)
+
 
 " =============== Deoplete ===============
 let g:deoplete#enable_at_startup = 1
@@ -465,7 +458,10 @@ autocmd QuickFixCmdPost *grep* cwindow
 
 
 " =============== Terminal ===============
-"tnoremap <Esc> <C-\><C-n>
+if has('nvim')
+    tnoremap <Esc> <C-\><C-n>
+    tnoremap jk  <C-\><C-n>
+endif
 
 
 " vim:set ft=vim et sw=4:
