@@ -19,6 +19,9 @@ set cursorline                  " Highlight current line
 
 " ,/ turns off last search
 nmap <silent> <leader>/ :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+" Stop highlighting on Enter in normal mode
+nmap <CR> :noh<CR>
+
 " Autoindent whole file and return cursor to position
 nmap <leader>ai mzgg=G`z`i
 
@@ -74,9 +77,7 @@ if dein#load_state(dein_path)
     call dein#add('tpope/vim-surround', {
             \ 'on_map': {'n' : ['cs', 'ds', 'ys'], 'x' : 'S'}, 'depends' : 'vim-repeat'})
 
-    "call dein#add('easymotion/vim-easymotion')
     call dein#add('justinmk/vim-sneak', {'depends' : 'vim-repeat'})
-    call dein#add('haya14busa/incsearch.vim')
 
     call dein#add('scrooloose/nerdtree', {'on_cmd': 'NERDTreeToggle'})
     call dein#add('scrooloose/nerdcommenter')
@@ -111,12 +112,12 @@ endfunction
 
 
 " ===== Defaults ======
-filetype plugin indent on   " Automatically detect file types.
-syntax on                   " Syntax highlighting
+filetype plugin indent on       " Automatically detect file types.
+syntax on                       " Syntax highlighting
 set synmaxcol=256
 syntax sync minlines=256
-set mouse=a                 " Automatically enable mouse usage
-set mousehide               " Hide the mouse cursor while typing
+set mouse=a                     " Automatically enable mouse usage
+set mousehide                   " Hide the mouse cursor while typing
 scriptencoding utf-8
 set guioptions=M
 "set nowrap                      " Do not wrap long lines
@@ -137,17 +138,17 @@ set smarttab
 set nobackup
 set noswapfile
 
-set nrformats-=octal                " Don't operate on octal numbers (helps with leading 0's)
+set nrformats-=octal            " Don't operate on octal numbers (helps with leading 0's)
 
-"set autowrite                       " Automatically write a file when leaving a modified buffer
-set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
+"set autowrite                   " Automatically write a file when leaving a modified buffer
+set shortmess+=filmnrxoOtT      " Abbrev. of messages (avoids 'hit enter')
 set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
-set virtualedit=onemore             " Allow for cursor beyond last character
-" set spell                           " Spell checking on
-set hidden                          " Allow buffer switching without saving
-set iskeyword-=.                    " '.' is an end of word designator
-set iskeyword-=#                    " '#' is an end of word designator
-set iskeyword-=-                    " '-' is an end of word designator
+set virtualedit=onemore         " Allow for cursor beyond last character
+"set spell                       " Spell checking on
+set hidden                      " Allow buffer switching without saving
+set iskeyword-=.                " '.' is an end of word designator
+set iskeyword-=#                " '#' is an end of word designator
+set iskeyword-=-                " '-' is an end of word designator
 
 set winminheight=0              " Windows can be 0 line high
 set linespace=0                 " No extra spaces between rows
@@ -176,7 +177,7 @@ set autoread
 set laststatus=2
 set ruler
 
-set lazyredraw                " More efficent redraw (needed to syntax + cursorline)
+set lazyredraw                  " More efficent redraw (needed to syntax + cursorline)
 
 highlight clear SignColumn      " SignColumn should match background
 highlight clear LineNr          " Cursorline will have same background color in relative mode
@@ -247,21 +248,6 @@ endif
 
 " Always switch to the current file directory
 autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
-
-
-" =============== incsearch ===============
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-
-set hlsearch
-let g:incsearch#auto_nohlsearch = 1
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
 
 
 " =============== vim-sneak ===============
