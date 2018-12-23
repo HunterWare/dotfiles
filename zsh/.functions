@@ -6,13 +6,13 @@ pathmunge() {
         *:"$2":*)
             ;;
         "::")
-            eval "$1=\"$2\"" 2>/dev/null || return 1
+            eval "export $1=\"$2\"" 2>/dev/null || return 1
             ;;
         *)
             if [ "$3" = "after" ]; then
-                eval "$1=\"$pathlist:$2\"" 2>/dev/null || return 1
+                eval "export $1=\"$pathlist:$2\"" 2>/dev/null || return 1
             else
-                eval "$1=\"$2:$pathlist\"" 2>/dev/null || return 1
+                eval "export $1=\"$2:$pathlist\"" 2>/dev/null || return 1
             fi
             ;;
     esac
