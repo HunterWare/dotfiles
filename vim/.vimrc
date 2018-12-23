@@ -49,6 +49,7 @@ if dein#load_state(dein_path)
     call dein#add('Shougo/vimshell')
     call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
 
+    call dein#add('junegunn/vim-easy-align')
     call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
     call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
 
@@ -270,6 +271,15 @@ map f <Plug>Sneak_s
 map F <Plug>Sneak_S
 
 
+" =============== vim-easy-align ===============
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+
 " =============== grep ===============
 " bind K to grep word under cursor and quickfix
 nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR><CR>
@@ -334,6 +344,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_c_include_dirs = [ $PROJ_ROOT.'/sw/ifcs/include',
+                                \  $PROJ_ROOT.'/sw/ifcs/src',
                                 \  $PROJ_ROOT.'/sw/ifcs/drivers/src/linux_module/ipd_enet',
                                 \  $PROJ_ROOT.'/sw/pen/include',
                                 \  $PROJ_ROOT.'/sw/pen/include/emulation',
@@ -341,6 +352,16 @@ let g:syntastic_c_include_dirs = [ $PROJ_ROOT.'/sw/ifcs/include',
                                 \ '../include',
                                 \'include' ]
 
+let g:syntastic_c_remove_include_errors = 1
+
+"disable syntastic on a per buffer basis (some work files blow it up)
+function! SyntasticDisableBuffer()
+    let b:syntastic_skip_checks = 1
+    SyntasticReset
+    echo 'Syntastic disabled for this buffer'
+endfunction
+
+command! SyntasticDisableBuffer call SyntasticDisableBuffer()
 
 " =============== tagbar ===============
 nnoremap <silent> <leader>tt :TagbarToggle<CR>
