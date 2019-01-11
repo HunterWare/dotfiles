@@ -154,6 +154,7 @@ set winminheight=0              " Windows can be 0 line high
 set linespace=0                 " No extra spaces between rows
 set showmatch                   " Show matching brackets/parenthesis
 set incsearch                   " Find as you type search
+set hlsearch                    " Show all matches of incsearch
 set ignorecase                  " Case insensitive search
 set smartcase                   " /Case sensitive when uc present
 set gdefault
