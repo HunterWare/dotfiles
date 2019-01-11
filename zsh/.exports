@@ -1,4 +1,4 @@
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
 export FZF_DEFAULT_OPTS="--tiebreak=begin"
 
-export LESS="-R -F"
+export LESS="-RFX"
