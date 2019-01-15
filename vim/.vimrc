@@ -378,7 +378,6 @@ let g:fzf_action = {
     \ 'ctrl-s': 'split',
     \ 'ctrl-v': 'vsplit'
     \ }
-nnoremap <c-p> :FZF<cr>
 
 " Augmenting Ag command using fzf#vim#with_preview function
 "   * fzf#vim#with_preview([[options], preview window, [toggle keys...]])
@@ -394,6 +393,13 @@ command! -bang -nargs=* Ag
   \                 <bang>0 ? fzf#vim#with_preview('up:60%')
   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
   \                 <bang>0)
+
+function! s:find_git_root()
+  return system('git rev-parse --show-toplevel 2> /dev/null')[:-2]
+endfunction
+
+command! ProjectFiles execute 'Files' s:find_git_root()
+nnoremap <c-p> :ProjectFiles<cr>
 
 
 " =============== Deoplete ===============
