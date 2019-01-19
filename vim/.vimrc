@@ -61,6 +61,7 @@ if dein#load_state(dein_path)
 
     "call dein#add('jreybert/vimagit', {'on_cmd': ['Magit', 'MagitOnly']})
 
+    "call dein#add('w0rp/ale')
     call dein#add('vim-syntastic/syntastic')
     call dein#add('nathanaelkane/vim-indent-guides')
     call dein#add('christoomey/vim-tmux-navigator')
@@ -305,6 +306,8 @@ let g:airline_powerline_fonts=1
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:airline_section_z = '%3p%% %3l/%L:%3v'
 
+let g:airline#extensions#branch#enabled = 0
+"let g:airline#extensions#hunks#enabled = 0
 
 " =============== indent-guides ===============
 let g:indent_guides_start_level = 2
@@ -348,8 +351,16 @@ function! SyntasticDisableBuffer()
     SyntasticReset
     echo 'Syntastic disabled for this buffer'
 endfunction
-
 command! SyntasticDisableBuffer call SyntasticDisableBuffer()
+
+
+" ================= ale ================
+
+let g:ale_sign_column_always = 1
+
+" Set this. Airline will handle the rest.
+let g:airline#extensions#ale#enabled = 1
+
 
 " =============== tagbar ===============
 nnoremap <silent> <leader>tt :TagbarToggle<CR>
@@ -411,9 +422,6 @@ inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 
 
 " =============== denite ===============
-call denite#custom#var('file_rec', 'command',
-    \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-
 call denite#custom#map(
       \ 'insert',
       \ '<C-n>',
@@ -428,10 +436,10 @@ call denite#custom#map(
       \)
 
 " Change matchers.
-call denite#custom#source(
-    \ 'file_mru', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
-call denite#custom#source(
-    \ 'file_rec', 'matchers', ['matcher_cpsm'])
+"call denite#custom#source(
+"    \ 'file_mru', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
+"call denite#custom#source(
+"    \ 'file_rec', 'matchers', ['matcher_cpsm'])
 
 call denite#custom#var('grep', 'command', ['ag'])
 call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep'])
@@ -441,9 +449,14 @@ call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
 
 " Define alias
-call denite#custom#alias('source', 'file_rec/git', 'file_rec')
-call denite#custom#var('file_rec/git', 'command',
-        \ ['git', 'ls-files', '-co', '--exclude-standard'])
+call denite#custom#var('file_rec', 'command',
+    \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+
+call denite#custom#alias('source', 'file/rec/git', 'file/rec')
+call denite#custom#var('file/rec/git', 'command',
+    \ ['git', 'ls-files', '-co', '--exclude-standard'])
+nnoremap <silent> <C-p> :<C-u>Denite
+    \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`<CR>
 
 " Change default prompt
 call denite#custom#option('default', 'prompt', '>')
@@ -452,7 +465,6 @@ call denite#custom#option('default', 'prompt', '>')
 call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
         \ [ '.git/', '.ropeproject/', '__pycache__/',
         \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
-
 
 nnoremap <leader>a :DeniteCursorWord -buffer-name=gtags_context gtags_context<cr>
 nnoremap <leader>d :DeniteCursorWord -buffer-name=gtags_def gtags_def<cr>
@@ -464,12 +476,15 @@ nnoremap <leader>p :Denite -buffer-name=gtags_path gtags_path<cr>
 
 autocmd QuickFixCmdPost *grep* cwindow
 
-
 " =============== Terminal ===============
 if has('nvim')
     tnoremap <Esc> <C-\><C-n>
     tnoremap jk  <C-\><C-n>
 endif
+
+
+" =============== gen_tags ===============
+let g:gen_tags#gtags_default_map=1
 
 
 " vim:set ft=vim et sw=4:
