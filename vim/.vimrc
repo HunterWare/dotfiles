@@ -33,6 +33,9 @@ command SudoWrite w !sudo tee > /dev/null %
 
 set updatetime=250
 
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength '\%>100v.\+'
+
 set undofile
 set undodir=~/.vim/undo/
 
