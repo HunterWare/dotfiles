@@ -8,9 +8,9 @@ export ZSH=~/.oh-my-zsh
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 #ZSH_THEME="robbyrussell"
-ZSH_THEME="agnoster"
+#ZSH_THEME="agnoster"
 #ZSH_THEME="refined"
-#ZSH_THEME="powerlevel9k/powerlevel9k"
+ZSH_THEME="powerlevel9k/powerlevel9k"
 #ZSH_THEME="random"
 
 # Set list of themes to load
@@ -68,6 +68,7 @@ plugins=(
   osx
   zsh-syntax-highlighting
   colored-man-pages
+  vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -120,17 +121,19 @@ POWERLEVEL9K_STATUS_OK=false
 
 POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir rbenv vcs background_jobs status command_execution_time)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
+#POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vi_mode context dir rbenv vcs background_jobs status command_execution_time)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vi_mode context dir vcs background_jobs status command_execution_time)
 #POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(command_execution_time status root_indicator background_jobs history time)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+bindkey -M viins 'jk' vi-cmd-mode
+KEYTIMEOUT=20
 
+[ -f ~/.fzf.zsh ]   && source ~/.fzf.zsh
 [ -f ~/.functions ] && source ~/.functions
-[ -f ~/.aliases ] && source ~/.aliases
-[ -f ~/.exports ] && source ~/.exports
-
-[ -f ~/.localrc ] && source ~/.localrc
+[ -f ~/.aliases ]   && source ~/.aliases
+[ -f ~/.exports ]   && source ~/.exports
+[ -f ~/.localrc ]   && source ~/.localrc
 
 # clean up exit code from above sources
 :
