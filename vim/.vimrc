@@ -59,7 +59,7 @@ if dein#load_state(dein_path)
     call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
     call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
 
-    call dein#add('jreybert/vimagit', {'on_cmd': ['Magit', 'MagitOnly']})
+    "call dein#add('jreybert/vimagit', {'on_cmd': ['Magit', 'MagitOnly']})
 
     call dein#add('vim-syntastic/syntastic')
     call dein#add('nathanaelkane/vim-indent-guides')
