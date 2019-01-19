@@ -298,12 +298,9 @@ colorscheme NeoSolarized
 
 
 " =============== airline ===============
-let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme='solarized'
 
-let g:airline_powerline_fonts=1 " or use:
-"let g:airline_left_sep='›'  " Slightly fancier than '>'
-"let g:airline_right_sep='‹' " Slightly fancier than '<'
+let g:airline_powerline_fonts=1
 
 let g:airline#parts#ffenc#skip_expected_string='utf-8[unix]'
 let g:airline_section_z = '%3p%% %3l/%L:%3v'
