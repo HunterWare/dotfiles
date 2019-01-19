@@ -140,6 +140,7 @@ set complete-=i
 set smarttab
 set nobackup
 set noswapfile
+set noshowmode                  " Don't need this with a statusline
 
 set nrformats-=octal            " Don't operate on octal numbers (helps with leading 0's)
 
@@ -155,12 +156,12 @@ set iskeyword-=-                " '-' is an end of word designator
 
 set winminheight=0              " Windows can be 0 line high
 set linespace=0                 " No extra spaces between rows
+set signcolumn=yes              " always show signcolumn
 set showmatch                   " Show matching brackets/parenthesis
 set incsearch                   " Find as you type search
 set hlsearch                    " Show all matches of incsearch
 set ignorecase                  " Case insensitive search
 set smartcase                   " /Case sensitive when uc present
-set gdefault
 set wildmenu                    " Show list instead of just completing
 set wildignore=*.swp,*.bak,*.pyc,*.class,*.o " ignore some extensions for tab completion
 set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
