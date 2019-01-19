@@ -25,8 +25,8 @@ nmap <CR> :noh<CR>
 " Autoindent whole file and return cursor to position
 nmap <leader>ai mzgg=G`z`i
 
-command Paste set paste | GitGutterDisable | set nornu nonu
-command NoPaste set nopaste | GitGutterEnable | set rnu nu
+command Paste set paste | set signcolumn=no | GitGutterDisable | set nornu nonu
+command NoPaste set nopaste | set signcolumn=yes | GitGutterEnable | set rnu nu
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 command SudoWrite w !sudo tee > /dev/null %
