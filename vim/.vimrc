@@ -165,7 +165,7 @@ set ignorecase                  " Case insensitive search
 set smartcase                   " /Case sensitive when uc present
 set wildmenu                    " Show list instead of just completing
 set wildignore=*.swp,*.bak,*.pyc,*.class,*.o " ignore some extensions for tab completion
-set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
+set wildmode=list:longest,full  " Cmd tab completion, list matches, then longest common part, then all
 set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 set scrolljump=5                " Lines to scroll when cursor leaves screen
 set scrolloff=3                 " Minimum lines to keep above and below cursor
