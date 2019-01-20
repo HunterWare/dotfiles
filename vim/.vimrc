@@ -267,7 +267,6 @@ map F <Plug>Sneak_S
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
-
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
@@ -309,19 +308,11 @@ let g:airline_section_z = '%3p%% %3l/%L:%3v'
 let g:airline#extensions#branch#enabled = 0
 "let g:airline#extensions#hunks#enabled = 0
 
+
 " =============== indent-guides ===============
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
-
-
-" =============== ctags ===============
-set tags=./tags;/,~/.vimtags
-" Make tags placed in .git/tags file available in all levels of a repository
-let gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
-if gitroot != ''
-    let &tags = &tags . ',' . gitroot . '/.git/tags'
-endif
 
 
 " =============== syntastic ===============
@@ -357,8 +348,6 @@ command! SyntasticDisableBuffer call SyntasticDisableBuffer()
 " ================= ale ================
 
 let g:ale_sign_column_always = 1
-
-" Set this. Airline will handle the rest.
 let g:airline#extensions#ale#enabled = 1
 
 
