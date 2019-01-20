@@ -24,9 +24,9 @@ function attach_or_connect() {
     if [[ $# -ne 1 ]]; then
         echo 'Usage: attach [host]'
     else
-        ssh -x $1 -t tmux -f '~/.tmux-iTerm.conf' -CC attach
+        ssh -x $1 -t tmux -L iTerm -f '~/.tmux-iTerm.conf' -CC attach
         if [ "$?" -eq "1" ]; then
-            ssh -x $1 -t tmux -f '~/.tmux-iTerm.conf' -CC
+            ssh -x $1 -t tmux -L iTerm -f '~/.tmux-iTerm.conf' -CC
         fi
     fi
 }
