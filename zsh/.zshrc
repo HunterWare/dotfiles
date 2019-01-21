@@ -106,7 +106,7 @@ source $ZSH/oh-my-zsh.sh
 DEFAULT_USER=${LC_USER:-$USER}
 unset LC_USER
 
-POWERLEVEL9K_VI_INSERT_MODE_STRING="INS"
+POWERLEVEL9K_VI_INSERT_MODE_STRING=""
 POWERLEVEL9K_VI_COMMAND_MODE_STRING="NOR"
 
 POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
@@ -122,9 +122,21 @@ POWERLEVEL9K_STATUS_OK=false
 
 POWERLEVEL9K_TIME_FORMAT="%D{%H:%M}"
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(vi_mode context dir vcs background_jobs status command_execution_time)
+# Multiline Prompt
+POWERLEVEL9K_PROMPT_ADD_NEWLINE=true
+POWERLEVEL9K_PROMPT_ON_NEWLINE=true
+
+local user_symbol="$"
+    if [[ $(print -P "%#") =~ "#" ]]; then
+        user_symbol = "#"
+    fi
+
+POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="\u2570\U2500${user_symbol} "
+
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs vi_mode background_jobs status command_execution_time)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 
+# VI mode bindings
 bindkey -M viins 'jk' vi-cmd-mode
 KEYTIMEOUT=20
 
