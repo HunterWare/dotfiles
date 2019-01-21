@@ -337,6 +337,7 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_c_include_dirs = [ $PROJ_ROOT.'/sw/ifcs/include',
                                 \  $PROJ_ROOT.'/sw/ifcs/src',
                                 \  $PROJ_ROOT.'/sw/ifcs/drivers/src/linux_module/ipd_enet',
+                                \  $PROJ_ROOT.'/sw/ifcs/test/arm/include',
                                 \  $PROJ_ROOT.'/sw/pen/include',
                                 \  $PROJ_ROOT.'/sw/pen/include/emulation',
                                 \  $TARGET_KERNEL.'/include',
