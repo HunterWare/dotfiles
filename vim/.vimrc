@@ -8,7 +8,7 @@ let maplocalleader = ","
 nnoremap <leader>, :normal ,<CR>:<CR>
 
 inoremap jk <ESC>
-"nnoremap ; :
+nnoremap ; :
 
 autocmd InsertEnter * set timeoutlen=250
 autocmd InsertLeave * set timeoutlen=1000
@@ -17,10 +17,15 @@ set number                      " Line numbers on
 set relativenumber              " Relative numbers
 set cursorline                  " Highlight current line
 
-" ,/ turns off last search
-nmap <silent> <leader>/ :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
-" Stop highlighting on Enter in normal mode
-nmap <CR> :noh<CR>
+" CR turns off last search
+nmap <silent> <CR> :noh<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+
+" Automatically equalize splits on window resize (like tmux zoom)
+autocmd VimResized * wincmd =
+
+" Fix when syntax highlight goes awry
+"nnoremap <silent> <leader>S :syntax sync fromstart<CR>
+"autocmd FileType markdown syntax sync fromstart
 
 " Autoindent whole file and return cursor to position
 nmap <leader>ai mzgg=G`z`i
@@ -59,9 +64,6 @@ if dein#load_state(dein_path)
     call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
     call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
 
-    "call dein#add('jreybert/vimagit', {'on_cmd': ['Magit', 'MagitOnly']})
-
-    "call dein#add('w0rp/ale')
     call dein#add('vim-syntastic/syntastic')
     call dein#add('nathanaelkane/vim-indent-guides')
     call dein#add('christoomey/vim-tmux-navigator')
@@ -76,12 +78,14 @@ if dein#load_state(dein_path)
     call dein#add('majutsushi/tagbar')
 
     call dein#add('tpope/vim-repeat', {'on_map' : '.'})
+    call dein#add('tpope/vim-abolish')
     call dein#add('tpope/vim-fugitive', {
             \ 'on_cmd': ['Git', 'Gstatus', 'Glog', 'Gcommit', 'Gblame', 'Ggrep', 'Gdiff']})
     call dein#add('tpope/vim-surround', {
             \ 'on_map': {'n' : ['cs', 'ds', 'ys'], 'x' : 'S'}, 'depends' : 'vim-repeat'})
 
     call dein#add('justinmk/vim-sneak', {'depends' : 'vim-repeat'})
+    call dein#add('rhysd/clever-f.vim')
 
     call dein#add('scrooloose/nerdtree', {'on_cmd': 'NERDTreeToggle'})
     call dein#add('scrooloose/nerdcommenter')
@@ -130,7 +134,7 @@ set shiftwidth=4                " Use indents of 4 spaces
 set expandtab                   " Tabs are spaces, not tabs
 set tabstop=4                   " Visual spaces per tab
 set softtabstop=4               " # of spaces per tab when editting
-set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
+set nojoinspaces                " Prevents inserting spaces after punctuation on a join
 set splitright                  " Puts new vsplit windows to the right of the current
 set splitbelow                  " Puts new split windows to the bottom of the current
 "set matchpairs+=<:>             " Match, to be used with %
@@ -162,6 +166,7 @@ set showmatch                   " Show matching brackets/parenthesis
 set incsearch                   " Find as you type search
 set hlsearch                    " Show all matches of incsearch
 set ignorecase                  " Case insensitive search
+set infercase                   " Smarter case sensitive search
 set smartcase                   " /Case sensitive when uc present
 set wildmenu                    " Show list instead of just completing
 set wildignore=*.swp,*.bak,*.pyc,*.class,*.o " ignore some extensions for tab completion
@@ -175,6 +180,8 @@ set foldenable                  " Auto fold code
 set foldlevelstart=10           " open most folds by default
 set foldnestmax=10              " 10 nested fold max
 set foldmethod=indent           " fold based on indent level
+set breakindent                 " wrap lines at current indent
+set showbreak=\\\\\             " wrap marker
 
 set list
 set listchars=tab:▸\ ,trail:•,extends:#,nbsp:. " Highlight whitespace (tab:›\ ,,eol:¬,)
@@ -188,9 +195,10 @@ set lazyredraw                  " More efficent redraw (needed to syntax + curso
 highlight clear SignColumn      " SignColumn should match background
 highlight clear LineNr          " Cursorline will have same background color in relative mode
 
-" Wrapped lines goes down/up to next row, rather than next line in file.
-noremap j gj
-noremap k gk
+" Wrapped lines goes down/up to next row, rather than next line in file
+" long jumps are relative (skip wrapped lines) and jumps show in jumplist
+nnoremap <expr> j v:count ? (v:count > 5 ? "m'" . v:count : '') . 'j' : 'gj'
+nnoremap <expr> k v:count ? (v:count > 5 ? "m'" . v:count : '') . 'k' : 'gk'
 
 " Remove trailing whitespaces and ^M chars
 function! StripTrailingWhitespace()
@@ -259,8 +267,6 @@ autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 " =============== vim-sneak ===============
 
 let g:sneak#label = 1
-map f <Plug>Sneak_s
-map F <Plug>Sneak_S
 
 
 " =============== vim-easy-align ===============
@@ -353,12 +359,6 @@ function! SyntasticDisableBuffer()
     echo 'Syntastic disabled for this buffer'
 endfunction
 command! SyntasticDisableBuffer call SyntasticDisableBuffer()
-
-
-" ================= ale ================
-
-let g:ale_sign_column_always = 1
-let g:airline#extensions#ale#enabled = 1
 
 
 " =============== tagbar ===============
