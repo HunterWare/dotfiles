@@ -138,7 +138,6 @@ set nojoinspaces                " Prevents inserting spaces after punctuation on
 set splitright                  " Puts new vsplit windows to the right of the current
 set splitbelow                  " Puts new split windows to the bottom of the current
 "set matchpairs+=<:>             " Match, to be used with %
-"set pastetoggle=<F12>           " pastetoggle (sane pindentation on pastes)
 "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
 set backspace=indent,eol,start
 set complete-=i
@@ -250,7 +249,9 @@ if &t_Co == 8 && $TERM !~# '^linux\|^Eterm'
     set t_Co=16
 endif
 
-"inoremap <C-U> <C-G>u<C-U>
+" Ensure C-U and C-W are undoable
+inoremap <C-u> <C-g>u<C-u>
+inoremap <C-w> <C-g>u<C-w>
 
 " yank to clipboard
 if has("clipboard")
