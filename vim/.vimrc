@@ -18,7 +18,7 @@ set relativenumber              " Relative numbers
 set cursorline                  " Highlight current line
 
 " CR turns off last search
-nmap <silent> <CR> :noh<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+nmap <silent> <CR> :noh<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR> :redraw!<CR>
 
 " Automatically equalize splits on window resize (like tmux zoom)
 autocmd VimResized * wincmd =
