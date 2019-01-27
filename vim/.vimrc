@@ -157,7 +157,7 @@ set virtualedit=onemore         " Allow for cursor beyond last character
 set hidden                      " Allow buffer switching without saving
 set iskeyword-=.                " '.' is an end of word designator
 set iskeyword-=#                " '#' is an end of word designator
-set iskeyword-=-                " '-' is an end of word designator
+set iskeyword+=-                " '-' is not end of word designator
 
 set winminheight=0              " Windows can be 0 line high
 set linespace=0                 " No extra spaces between rows
