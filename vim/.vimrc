@@ -473,8 +473,33 @@ call denite#custom#var('file_rec', 'command',
 call denite#custom#alias('source', 'file/rec/git', 'file/rec')
 call denite#custom#var('file/rec/git', 'command',
     \ ['git', 'ls-files', '-co', '--exclude-standard'])
-nnoremap <silent> <C-p> :<C-u>Denite
-    \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`<CR>
+
+function FindProjectRoot()
+    let l:scm = {'type': '', 'root': ''}
+    let l:scm_list = ['.root', '.git', '.hg', '.svn']
+
+    for l:item in l:scm_list
+        let l:dir = finddir(l:item, '.;')
+        if !empty(l:dir)
+            let l:scm['type'] = l:item
+            let l:scm['root'] = substitute(l:dir, '/' . l:scm['type'], '', 'g')
+            return l:scm
+        endif
+    endfor
+
+    return l:scm
+endfunction
+
+function DoDenite()
+    let l:result = FindProjectRoot()
+    if (l:result['type'] ==? '.git')
+        execute "DeniteProjectDir -path=". l:result['root'] "file/rec/git"
+    else
+        execute "DeniteProjectDir -path=". l:result['root'] "file/rec"
+    endif
+endfunction
+
+nnoremap <silent> <C-p> :<C-u>call DoDenite()<CR>
 
 " Change default prompt
 call denite#custom#option('default', 'prompt', '>')
