@@ -254,6 +254,23 @@ endif
 inoremap <C-u> <C-g>u<C-u>
 inoremap <C-w> <C-g>u<C-w>
 
+" use tmux over OSX clipboard if we are in it. You want this before setting
+" the clipboard variable
+if has('nvim') && exists('$TMUX') && executable('tmux')
+    let g:clipboard = {
+          \   'name': 'myClipboard',
+          \   'copy': {
+          \      '+': 'tmux load-buffer -',
+          \      '*': 'tmux load-buffer -',
+          \    },
+          \   'paste': {
+          \      '+': 'tmux save-buffer -',
+          \      '*': 'tmux save-buffer -',
+          \   },
+          \   'cache_enabled': 1,
+          \ }
+endif
+
 " yank to clipboard
 if has("clipboard")
     set clipboard=unnamed " copy to the system clipboard (+ reg)
