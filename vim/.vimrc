@@ -108,6 +108,7 @@ if dein#check_install()
 endif
 
 
+" Utility checks for OS dependance
 silent function! OSX()
 return has('macunix')
 endfunction
