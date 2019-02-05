@@ -9,8 +9,9 @@ brew install vim --with-override-system-vi --with-python3 --with-luajit
 brew install colordiff ripgrep vim cscope neovim sift fzf xz stow global telnet highlight mas the_silver_searcher
 sudo pip3 install neovim
 
-# Update iTerm selection background
-# 93a1a1 -> eee8d5
+# Switch iTerm to Solarized Dark and update
+# Selection backgroun 073642 -> eee8d5
+# Cursor color        839496 -> fdf6e3
 
 # Add objc to highlight
 # edit /usr/local/etc/highlight/filetypes.conf
