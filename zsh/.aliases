@@ -1,7 +1,6 @@
 alias ll='ls -Fl'
 alias la='ls -aFl'
 
-alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs'
 alias em='emacs -nw'
 
 alias vi='nvim'
