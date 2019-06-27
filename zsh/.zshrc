@@ -64,8 +64,6 @@ HIST_STAMPS="mm/dd/yyyy"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  brew
-  osx
   zsh-syntax-highlighting
   colored-man-pages
   vi-mode
@@ -105,6 +103,8 @@ source $ZSH/oh-my-zsh.sh
 # Use and set LC_USER so that SSH prompts will be right
 DEFAULT_USER=${LC_USER:-$USER}
 unset LC_USER
+
+POWERLEVEL9K_MODE='nerdfont-complete'
 
 POWERLEVEL9K_VI_INSERT_MODE_STRING=""
 POWERLEVEL9K_VI_COMMAND_MODE_STRING="NOR"
