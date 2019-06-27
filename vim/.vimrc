@@ -30,6 +30,9 @@ autocmd VimResized * wincmd =
 " Autoindent whole file and return cursor to position
 nmap <leader>ai mzgg=G`z`i
 
+vnoremap > >gv
+vnoremap < <gv
+
 command Paste set paste | set signcolumn=no | GitGutterDisable | set nornu nonu
 command NoPaste set nopaste | set signcolumn=yes | GitGutterEnable | set rnu nu
 
@@ -83,6 +86,7 @@ if dein#load_state(dein_path)
             \ 'on_cmd': ['Git', 'Gstatus', 'Glog', 'Gcommit', 'Gblame', 'Ggrep', 'Gdiff']})
     call dein#add('tpope/vim-surround', {
             \ 'on_map': {'n' : ['cs', 'ds', 'ys'], 'x' : 'S'}, 'depends' : 'vim-repeat'})
+    "call dein#add('tpope/unimpaired')
 
     call dein#add('justinmk/vim-sneak', {'depends' : 'vim-repeat'})
     call dein#add('rhysd/clever-f.vim')
@@ -122,6 +126,12 @@ endfunction
 
 " ===== Defaults ======
 filetype plugin indent on       " Automatically detect file types.
+set autoindent                  " Indent at the same level of the previous line
+set cino+=(0
+set shiftwidth=4                " Use indents of 4 spaces
+set tabstop=4                   " Visual spaces per tab
+set expandtab                   " Tabs are spaces, not tabs
+set softtabstop=4               " # of spaces per tab when editting
 syntax on                       " Syntax highlighting
 set synmaxcol=256
 syntax sync minlines=256
@@ -130,11 +140,6 @@ set mousehide                   " Hide the mouse cursor while typing
 scriptencoding utf-8
 set guioptions=M
 "set nowrap                      " Do not wrap long lines
-set autoindent                  " Indent at the same level of the previous line
-set shiftwidth=4                " Use indents of 4 spaces
-set expandtab                   " Tabs are spaces, not tabs
-set tabstop=4                   " Visual spaces per tab
-set softtabstop=4               " # of spaces per tab when editting
 set nojoinspaces                " Prevents inserting spaces after punctuation on a join
 set splitright                  " Puts new vsplit windows to the right of the current
 set splitbelow                  " Puts new split windows to the bottom of the current
@@ -173,8 +178,8 @@ set wildignore=*.swp,*.bak,*.pyc,*.class,*.o " ignore some extensions for tab co
 set wildmode=list:longest,full  " Cmd tab completion, list matches, then longest common part, then all
 set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 set scrolljump=5                " Lines to scroll when cursor leaves screen
-set scrolloff=3                 " Minimum lines to keep above and below cursor
-set sidescrolloff=5
+set scrolloff=1                 " Minimum lines to keep above and below cursor
+set sidescrolloff=1
 
 set foldenable                  " Auto fold code
 set foldlevelstart=10           " open most folds by default
@@ -363,6 +368,7 @@ let g:syntastic_c_include_dirs = [ $PROJ_ROOT.'/sw/ifcs/include',
                                 \  $PROJ_ROOT.'/sw/ifcs/src',
                                 \  $PROJ_ROOT.'/sw/ifcs/drivers/src/linux_module/ipd_enet',
                                 \  $PROJ_ROOT.'/sw/ifcs/test/arm/include',
+                                \  $PROJ_ROOT.'/sw/ifcs/test/cengine/include',
                                 \  $PROJ_ROOT.'/sw/pen/include',
                                 \  $PROJ_ROOT.'/sw/pen/include/emulation',
                                 \  $TARGET_KERNEL.'/include',
