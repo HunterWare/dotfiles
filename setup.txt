@@ -4,7 +4,7 @@
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # brew install
-brew install htop ssh-copy-id xtitle mosh
+brew install htop xtitle mosh
 brew install vim --with-override-system-vi --with-python3 --with-luajit
 brew install colordiff ripgrep vim cscope neovim sift fzf xz stow global telnet highlight mas the_silver_searcher
 sudo pip3 install neovim
@@ -77,6 +77,7 @@ pip3 install neovim
 ##########
 # Setup neovim
 mkdir .vim
+mkdir .config
 ln -s ~/.vim ~/.config/nvim
 ln -s ~/.vimrc ~/.config/nvim/init.vim
 
