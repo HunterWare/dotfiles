@@ -2,3 +2,7 @@ export FZF_DEFAULT_COMMAND='ag -l -g ""'
 export FZF_DEFAULT_OPTS="--tiebreak=begin"
 
 export LESS="-RFX"
+
+# by default: export WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>'
+# we take out the slash, period, angle brackets, dash here.
+export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
