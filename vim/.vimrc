@@ -131,12 +131,12 @@ endfunction
 
 " ===== Defaults ======
 filetype plugin indent on       " Automatically detect file types.
-set autoindent                  " Indent at the same level of the previous line
+set autoindent                  " Indent to level of prev line for txt files
 set cino+=(0
 set shiftwidth=4                " Use indents of 4 spaces
-set tabstop=4                   " Visual spaces per tab
-set expandtab                   " Tabs are spaces, not tabs
+set tabstop=8                   " Visual spaces per tab
 set softtabstop=4               " # of spaces per tab when editting
+set expandtab                   " Tabs are spaces, not tabs
 syntax on                       " Syntax highlighting
 set synmaxcol=256
 syntax sync minlines=256
@@ -152,7 +152,6 @@ set splitbelow                  " Puts new split windows to the bottom of the cu
 "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
 set backspace=indent,eol,start
 set complete-=i
-set smarttab
 set nobackup
 set noswapfile
 set noshowmode                  " Don't need this with a statusline
