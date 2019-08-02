@@ -33,6 +33,11 @@ nmap <leader>ai mzgg=G`z`i
 vnoremap > >gv
 vnoremap < <gv
 
+"nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> + :resize +1<CR>
+"nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
+nnoremap <silent> - :resize -1<CR>
+
 command Paste set paste | set signcolumn=no | GitGutterDisable | set nornu nonu
 command NoPaste set nopaste | set signcolumn=yes | GitGutterEnable | set rnu nu
 
