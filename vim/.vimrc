@@ -30,6 +30,9 @@ autocmd VimResized * wincmd =
 " Autoindent whole file and return cursor to position
 nmap <leader>ai mzgg=G`z`i
 
+" Command to convert a file to Unit format
+command ToUnix set ff=unix
+
 vnoremap > >gv
 vnoremap < <gv
 
@@ -295,6 +298,26 @@ autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 " =============== vim-sneak ===============
 
 let g:sneak#label = 1
+let g:sneak#s_next = 1
+let g:sneak#label_esc = "<CR>"
+
+"nmap f <Plug>Sneak_f
+"nmap F <Plug>Sneak_F
+"xmap f <Plug>Sneak_f
+"xmap F <Plug>Sneak_F
+"omap f <Plug>Sneak_f
+"omap F <Plug>Sneak_F
+"
+"nmap t <Plug>Sneak_t
+"nmap T <Plug>Sneak_T
+"xmap t <Plug>Sneak_t
+"xmap T <Plug>Sneak_T
+"omap t <Plug>Sneak_t
+"omap T <Plug>Sneak_T
+
+" =============== clever-f ===============
+
+let g:clever_f_chars_match_any_signs = ';'
 
 
 " =============== vim-easy-align ===============
