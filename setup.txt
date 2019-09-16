@@ -61,17 +61,8 @@ sudo vi /etc/fstab
 
 ########## Raspberry Pi
 ##########
-sudo apt install build-essential global emacs git silversearcher-ag vim cscope zsh highlight stow colordiff tmux
+sudo apt install build-essential global emacs git silversearcher-ag vim cscope zsh highlight stow colordiff tmux neovim
 
-# neovim
-sudo apt install git libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
-mkdir ~/tools && cd ~/tools
-git clone https://github.com/neovim/neovim.git
-cd neovim
-make CMAKE_BUILD_TYPE=RelWithDebInfo
-sudo make install
-
-pip3 install neovim
 
 ########## Setup tools
 ##########
@@ -94,6 +85,9 @@ rm install.sh
 # Install powerlevel9k
 git clone https://github.com/hunterware/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 
+# Install zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
 # Stow
 git clone https://github.com/HunterWare/dotfiles .dotfiles
 cd .dotfiles
@@ -104,3 +98,13 @@ stow bash emacs tmux vim zsh
 # Fix solarized theme
 patch -p1 ~/.emacs.d/elpa/color-theme-solarized-20171024.825/solarized-definitions.el < solarized-definitions.el.diff
 
+
+########## Extra Stuff
+##########
+# neovim
+sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
+mkdir ~/tools && cd ~/tools
+git clone https://github.com/neovim/neovim.git
+cd neovim
+make CMAKE_BUILD_TYPE=RelWithDebInfo
+sudo make install
