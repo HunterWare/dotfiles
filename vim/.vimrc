@@ -55,6 +55,15 @@ match OverLength '\%>100v.\+'
 set undofile
 set undodir=~/.vim/undo/
 
+" - font type and size setting.
+if has('win32')
+    set guifont=Consolas:h12                            " Win32
+elseif has('gui_macvim')
+    set guifont=FuraCodeNerdFontCompleteM-Regular:h12   " OSX
+else
+    set guifont=Monospace\ 12                           " Linux
+endif
+
 set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
 let dein_path = expand('~/.vim/dein')
 
