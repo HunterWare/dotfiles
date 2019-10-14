@@ -428,6 +428,12 @@ command! SyntasticDisableBuffer call SyntasticDisableBuffer()
 " =============== tagbar ===============
 nnoremap <silent> <leader>tt :TagbarToggle<CR>
 
+let g:tagbar_zoomwidth = 0
+let g:tagbar_autofocus = 1
+let g:tagbar_compact = 1
+let g:tagbar_previewwin_pos = "aboveleft"
+"let g:tagbar_autopreview = 1
+
 
 " =============== undotree ===============
 nnoremap <Leader>u :UndotreeToggle<CR>
