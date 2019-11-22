@@ -400,16 +400,16 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-let g:syntastic_c_include_dirs = [ $PROJ_ROOT.'/sw/ifcs/include',
-                                \  $PROJ_ROOT.'/sw/ifcs/src',
-                                \  $PROJ_ROOT.'/sw/ifcs/drivers/src/linux_module/ipd_enet',
-                                \  $PROJ_ROOT.'/sw/ifcs/test/arm/include',
-                                \  $PROJ_ROOT.'/sw/ifcs/test/cengine/include',
-                                \  $PROJ_ROOT.'/sw/pen/include',
-                                \  $PROJ_ROOT.'/sw/pen/include/emulation',
-                                \  $PROJ_ROOT.'/sw/pen/include/emulation_cmn',
-                                \  $PROJ_ROOT.'/sw/pen/include/emulation_k2',
-                                \  $PROJ_ROOT.'/sw/pen/include/emulation_tl',
+let g:syntastic_c_include_dirs = [ $WS.'/ifcs/include',
+                                \  $WS.'/ifcs/src',
+                                \  $WS.'/ifcs/drivers/src/linux_module/ipd_enet',
+                                \  $WS.'/ifcs/test/arm/include',
+                                \  $WS.'/ifcs/test/cengine/include',
+                                \  $WS.'/pen/include',
+                                \  $WS.'/pen/include/emulation',
+                                \  $WS.'/pen/include/emulation_cmn',
+                                \  $WS.'/pen/include/emulation_k2',
+                                \  $WS.'/pen/include/emulation_tl',
                                 \  $TARGET_KERNEL.'/include',
                                 \ '../include',
                                 \'include' ]
