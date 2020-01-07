@@ -8,6 +8,8 @@ let maplocalleader = ","
 nnoremap <leader>, :normal ,<CR>:<CR>
 
 inoremap jk <ESC>
+vnoremap jk <ESC>
+
 nnoremap ; :
 
 autocmd InsertEnter * set timeoutlen=250
@@ -579,6 +581,9 @@ endif
 
 " =============== gen_tags ===============
 let g:gen_tags#gtags_default_map=1
+
+let g:gen_tags#ctags_auto_gen=1
+"let g:gen_tags#gtags_auto_gen=1
 
 
 " vim:set ft=vim et sw=4:
