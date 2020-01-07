@@ -61,7 +61,7 @@ sudo vi /etc/fstab
 
 ########## Raspberry Pi
 ##########
-sudo apt install build-essential global emacs git silversearcher-ag vim cscope zsh highlight stow colordiff tmux neovim
+sudo apt install apt-file build-essential global emacs git silversearcher-ag vim cscope exuberant-ctags zsh highlight stow colordiff tmux neovim
 
 
 ########## Setup tools
