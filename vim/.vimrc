@@ -8,7 +8,7 @@ let maplocalleader = ","
 nnoremap <leader>, :normal ,<CR>:<CR>
 
 inoremap jk <ESC>
-vnoremap jk <ESC>
+"vnoremap jk <ESC>
 
 nnoremap ; :
 
@@ -20,7 +20,8 @@ set relativenumber              " Relative numbers
 set cursorline                  " Highlight current line
 
 " CR turns off last search
-nmap <silent> <CR> :noh<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR> :redraw!<CR>
+"nmap <silent> <CR> :noh<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR> :redraw!<CR>
+nnoremap <silent> \ :noh<return>
 
 " Automatically equalize splits on window resize (like tmux zoom)
 autocmd VimResized * wincmd =
@@ -96,7 +97,10 @@ if dein#load_state(dein_path)
 
     call dein#add('airblade/vim-gitgutter')
 
-    call dein#add('jsfaint/gen_tags.vim')
+    "call dein#add('jsfaint/gen_tags.vim')
+    call dein#add('ludovicchabant/vim-gutentags')
+    call dein#add('skywind3000/gutentags_plus')
+
     call dein#add('majutsushi/tagbar')
 
     call dein#add('tpope/vim-repeat', {'on_map' : '.'})
@@ -105,7 +109,7 @@ if dein#load_state(dein_path)
             \ 'on_cmd': ['Git', 'Gstatus', 'Glog', 'Gcommit', 'Gblame', 'Ggrep', 'Gdiff']})
     call dein#add('tpope/vim-surround', {
             \ 'on_map': {'n' : ['cs', 'ds', 'ys'], 'x' : 'S'}, 'depends' : 'vim-repeat'})
-    "call dein#add('tpope/unimpaired')
+    call dein#add('tpope/vim-unimpaired')
 
     call dein#add('justinmk/vim-sneak', {'depends' : 'vim-repeat'})
     call dein#add('rhysd/clever-f.vim')
@@ -450,7 +454,7 @@ nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
+"nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
 
 " Disable tmux navigator when zooming the Vim pane
 let g:tmux_navigator_disable_when_zoomed = 1
@@ -584,6 +588,20 @@ let g:gen_tags#gtags_default_map=1
 
 let g:gen_tags#ctags_auto_gen=1
 "let g:gen_tags#gtags_auto_gen=1
+
+
+" =============== gutentags ===============
+" enable gtags module
+let g:gutentags_modules = ['ctags', 'gtags_cscope']
+
+" config project root markers.
+let g:gutentags_project_root = ['.root']
+
+" generate datebases in my cache directory, prevent gtags files polluting my project
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+
+" change focus to quickfix window after search (optional).
+let g:gutentags_plus_switch = 1
 
 
 " vim:set ft=vim et sw=4:
