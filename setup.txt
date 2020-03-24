@@ -79,11 +79,12 @@ rm installer.sh
 
 # Install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-./install.sh
-rm install.sh
 
 # Install powerlevel10k
 git clone https://github.com/romkatv/powerlevel10k ~/.oh-my-zsh/custom/themes/powerlevel10k
+
+# update colored-man-pages colors
+patch -d ~/.oh-my-zsh -p1 < ~/.dotfiles/oh-my-zsh-colored-man.diff
 
 # Install zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
