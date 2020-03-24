@@ -97,7 +97,6 @@ if dein#load_state(dein_path)
 
     call dein#add('airblade/vim-gitgutter')
 
-    "call dein#add('jsfaint/gen_tags.vim')
     call dein#add('ludovicchabant/vim-gutentags')
     call dein#add('skywind3000/gutentags_plus')
 
@@ -581,13 +580,6 @@ if has('nvim')
     tnoremap <Esc> <C-\><C-n>
     tnoremap jk  <C-\><C-n>
 endif
-
-
-" =============== gen_tags ===============
-let g:gen_tags#gtags_default_map=1
-
-let g:gen_tags#ctags_auto_gen=1
-"let g:gen_tags#gtags_auto_gen=1
 
 
 " =============== gutentags ===============
