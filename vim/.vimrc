@@ -187,7 +187,6 @@ set iskeyword+=-                " '-' is not end of word designator
 
 set winminheight=0              " Windows can be 0 line high
 set linespace=0                 " No extra spaces between rows
-set signcolumn=yes              " always show signcolumn
 set showmatch                   " Show matching brackets/parenthesis
 set incsearch                   " Find as you type search
 set hlsearch                    " Show all matches of incsearch
@@ -218,6 +217,10 @@ set laststatus=2
 set ruler
 
 set lazyredraw                  " More efficent redraw (needed to syntax + cursorline)
+
+"set signcolumn=yes              " always show signcolumn
+autocmd BufRead,BufNewFile * setlocal signcolumn=yes
+autocmd FileType tagbar,nerdtree setlocal signcolumn=no
 
 highlight clear SignColumn      " SignColumn should match background
 highlight clear LineNr          " Cursorline will have same background color in relative mode
