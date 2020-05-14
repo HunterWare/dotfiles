@@ -12,6 +12,8 @@ inoremap jk <ESC>
 
 nnoremap ; :
 
+set updatetime=250
+
 autocmd InsertEnter * set timeoutlen=250
 autocmd InsertLeave * set timeoutlen=1000
 
@@ -49,8 +51,6 @@ command NoPaste set nopaste | set signcolumn=yes | GitGutterEnable | set rnu nu
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 command SudoWrite w !sudo tee > /dev/null %
-
-set updatetime=250
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength '\%>100v.\+'
@@ -198,9 +198,10 @@ set wildmenu                    " Show list instead of just completing
 set wildignore=*.swp,*.bak,*.pyc,*.class,*.o " ignore some extensions for tab completion
 set wildmode=list:longest,full  " Cmd tab completion, list matches, then longest common part, then all
 set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
-set scrolljump=5                " Lines to scroll when cursor leaves screen
-set scrolloff=1                 " Minimum lines to keep above and below cursor
-set sidescrolloff=1
+
+set scrolljump=1                " Lines to scroll when cursor leaves screen
+set scrolloff=0                 " Minimum lines to keep above and below cursor
+set sidescrolloff=0
 
 set foldenable                  " Auto fold code
 set foldlevelstart=10           " open most folds by default
@@ -418,6 +419,7 @@ let g:syntastic_c_include_dirs = [ $WS.'/ifcs/include',
                                 \  $TARGET_KERNEL.'/include',
                                 \ '../include',
                                 \'include' ]
+let g:syntastic_c_compiler_options = '-DMCUNUM=0 -std=c99'
 
 let g:syntastic_c_remove_include_errors = 1
 
@@ -509,11 +511,6 @@ call denite#custom#map(
       \ 'noremap'
       \)
 
-" Change matchers.
-"call denite#custom#source(
-"    \ 'file_mru', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
-"call denite#custom#source(
-"    \ 'file_rec', 'matchers', ['matcher_cpsm'])
 
 call denite#custom#var('grep', 'command', ['ag'])
 call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep'])
@@ -522,13 +519,21 @@ call denite#custom#var('grep', 'pattern_opt', [])
 call denite#custom#var('grep', 'separator', ['--'])
 call denite#custom#var('grep', 'final_opts', [])
 
-" Define alias
-call denite#custom#var('file_rec', 'command',
+" Use Ag to search for files from current directory
+call denite#custom#var('file/rec', 'command',
     \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 
-call denite#custom#alias('source', 'file/rec/git', 'file/rec')
-call denite#custom#var('file/rec/git', 'command',
+" Use git to seach for files in project
+call denite#custom#var('file/git', 'command',
     \ ['git', 'ls-files', '-co', '--exclude-standard'])
+
+" Change matchers.
+call denite#custom#source(
+    \ 'file_git', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
+call denite#custom#source(
+    \ 'file_rec', 'matchers', ['matcher_fuzzy'])
+
+call denite#custom#option('default', 'prompt', '➤ ')
 
 function FindProjectRoot()
     let l:scm = {'type': '', 'root': ''}
@@ -549,7 +554,7 @@ endfunction
 function DoDenite()
     let l:result = FindProjectRoot()
     if (l:result['type'] ==? '.git')
-        execute "DeniteProjectDir -path=". l:result['root'] "file/rec/git"
+        execute "DeniteProjectDir -path=". l:result['root'] "file/git"
     else
         execute "DeniteProjectDir -path=". l:result['root'] "file/rec"
     endif
@@ -595,5 +600,8 @@ let g:gutentags_cache_dir = expand('~/.cache/tags')
 " change focus to quickfix window after search (optional).
 let g:gutentags_plus_switch = 1
 
+
+" =============== gitgutter ===============
+let g:gitgutter_max_signs=1000
 
 " vim:set ft=vim et sw=4:
