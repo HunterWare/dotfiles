@@ -17,9 +17,9 @@ set updatetime=250
 autocmd InsertEnter * set timeoutlen=250
 autocmd InsertLeave * set timeoutlen=1000
 
-set number                      " Line numbers on
-set relativenumber              " Relative numbers
-set cursorline                  " Highlight current line
+"set number                      " Line numbers on
+"set relativenumber              " Relative numbers
+"set cursorline                  " Highlight current line
 
 " CR turns off last search
 "nmap <silent> <CR> :noh<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR> :redraw!<CR>
@@ -56,7 +56,46 @@ highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength '\%>100v.\+'
 
 set undofile
-set undodir=~/.vim/undo/
+set undodir=~/.vim/undo//
+
+set backupdir=~/.vim/backup//
+if !has('nvim')
+    set backup
+else
+    " Normally we would want to have it turned on, but See bug and workaround below.
+    " OBS: It's a known-bug that backupdir is not supporting the correct double slash filename
+    " expansion see: https://code.google.com/p/vim/issues/detail?id=179
+    set nobackup
+
+    " This is the workaround for the backup filename expansion problem.
+    autocmd BufWritePre * :call SaveBackups()
+
+    function! SaveBackups()
+        if expand('%:p') =~ &backupskip | return | endif
+
+        " If this is a newly created file, don't try to create a backup
+        if !filereadable(@%) | return | endif
+
+        for l:backupdir in split(&backupdir, ',')
+            :call SaveBackup(l:backupdir)
+        endfor
+    endfunction
+
+    function! SaveBackup(backupdir)
+        let l:filename = expand('%:p')
+        if a:backupdir =~ '//$'
+            let l:backup = escape(substitute(l:filename, '/', '%', 'g')  . &backupext, '%')
+        else
+            let l:backup = escape(expand('%') . &backupext, '%')
+        endif
+
+        let l:backup_path = a:backupdir . l:backup
+        :silent! execute '!cp ' . resolve(l:filename) . ' ' . l:backup_path
+    endfunction
+
+    " Other way to fix this
+    "autocmd BufWritePre * let &backupext = substitute(expand('%:p:h'), '/', '%', 'g')
+endif
 
 " - font type and size setting.
 if has('win32')
@@ -169,7 +208,6 @@ set splitbelow                  " Puts new split windows to the bottom of the cu
 "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
 set backspace=indent,eol,start
 set complete-=i
-set nobackup
 set noswapfile
 set noshowmode                  " Don't need this with a statusline
 
@@ -406,7 +444,7 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_c_include_dirs = [ $WS.'/ifcs/include',
