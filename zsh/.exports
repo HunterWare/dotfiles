@@ -6,3 +6,6 @@ export LESS="-RFX"
 # by default: export WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>'
 # we take out the slash, period, angle brackets, dash here.
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
+# Sort listing with Caps first
+export LC_COLLATE="C"
