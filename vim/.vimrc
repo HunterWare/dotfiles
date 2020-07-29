@@ -17,7 +17,7 @@ set updatetime=250
 autocmd InsertEnter * set timeoutlen=250
 autocmd InsertLeave * set timeoutlen=1000
 
-"set number                      " Line numbers on
+set number                      " Line numbers on
 "set relativenumber              " Relative numbers
 "set cursorline                  " Highlight current line
 
