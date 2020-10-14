@@ -1,5 +1,5 @@
-alias ll='ls -Fl'
-alias la='ls -aFl'
+alias ll='ls --color=auto -Fl'
+alias la='ls --color=auto -aFl'
 
 alias em='emacs -nw'
 
