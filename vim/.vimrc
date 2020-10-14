@@ -128,7 +128,7 @@ if dein#load_state(dein_path)
 
     call dein#add('vim-syntastic/syntastic')
     call dein#add('nathanaelkane/vim-indent-guides')
-    call dein#add('christoomey/vim-tmux-navigator')
+    call dein#add('sunaku/tmux-navigate')
 
     "call dein#add('Raimondi/delimitMate', {'on_map' : { 'i' : ['(', '[', '{' ] }})
     "call dein#add('terryma/vim-multiple-cursors', {
@@ -487,19 +487,6 @@ let g:tagbar_previewwin_pos = "aboveleft"
 nnoremap <Leader>u :UndotreeToggle<CR>
 " If undotree is opened, it is likely one wants to interact with it.
 let g:undotree_SetFocusWhenToggle=1
-
-
-" =============== vim-tmux-navigator ===============
-let g:tmux_navigator_no_mappings = 1
-
-nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-"nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
-
-" Disable tmux navigator when zooming the Vim pane
-let g:tmux_navigator_disable_when_zoomed = 1
 
 
 " =============== fzf ===============
