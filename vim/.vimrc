@@ -233,7 +233,7 @@ set infercase                   " Smarter case sensitive search
 set smartcase                   " /Case sensitive when uc present
 set wildmenu                    " Show list instead of just completing
 set wildignore=*.swp,*.bak,*.pyc,*.class,*.o " ignore some extensions for tab completion
-set wildmode=list:longest,full  " Cmd tab completion, list matches, then longest common part, then all
+set wildmode=longest:full,full  " tab compl: compl longest common part and list
 set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
 
 set scrolljump=1                " Lines to scroll when cursor leaves screen
