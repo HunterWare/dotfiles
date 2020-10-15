@@ -463,8 +463,11 @@ let g:syntastic_c_include_dirs = [ $WS.'/ifcs/include',
                                 \ '../include',
                                 \'include' ]
 let g:syntastic_c_compiler_options = '-DMCUNUM=0 -std=c99'
-
 let g:syntastic_c_remove_include_errors = 1
+
+let g:syntastic_cpp_include_dirs = [ $ZEBU_ROOT.'/include',
+                                \ $ZEBU_IP_ROOT.'/include']
+let g:syntastic_cpp_compiler_options = '-D_GLIBCXX_USE_CXX11_ABI=0'
 
 "disable syntastic on a per buffer basis (some work files blow it up)
 function! SyntasticDisableBuffer()
