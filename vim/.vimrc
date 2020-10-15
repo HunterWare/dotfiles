@@ -128,7 +128,7 @@ if dein#load_state(dein_path)
 
     call dein#add('vim-syntastic/syntastic')
     call dein#add('nathanaelkane/vim-indent-guides')
-    call dein#add('sunaku/tmux-navigate')
+    call dein#add('HunterWare/tmux-navigate')
 
     call dein#add('tmux-plugins/vim-tmux-focus-events')
 
