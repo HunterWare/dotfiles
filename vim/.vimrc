@@ -130,6 +130,8 @@ if dein#load_state(dein_path)
     call dein#add('nathanaelkane/vim-indent-guides')
     call dein#add('sunaku/tmux-navigate')
 
+    call dein#add('tmux-plugins/vim-tmux-focus-events')
+
     "call dein#add('Raimondi/delimitMate', {'on_map' : { 'i' : ['(', '[', '{' ] }})
     "call dein#add('terryma/vim-multiple-cursors', {
     "       \ 'on_map' : { 'n' : ['<C-n>', '<C-p>'], 'x' : '<C-n>'}})
@@ -280,7 +282,7 @@ function! StripTrailingWhitespace()
     let @/=_s
     call cursor(l, c)
 endfunction
-autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql
+autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql,vim
             \ autocmd BufWritePre <buffer> call StripTrailingWhitespace()
 
 
