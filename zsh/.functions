@@ -30,3 +30,8 @@ function attach_or_connect() {
         fi
     fi
 }
+
+function term_resize() {
+    echo "resize to $1 $2"
+    printf "\e[8;$1;$2t"
+}

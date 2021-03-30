@@ -1,7 +1,9 @@
-alias ll='ls --color=auto -Fl'
-alias la='ls --color=auto -aFl'
+alias ll='ls -Fl'
+alias la='ls -aFl'
 
 alias em='emacs -nw'
+
+alias pytop='bpytop'
 
 alias vi='nvim'
 alias vimdiff='nvim -d'
@@ -14,3 +16,5 @@ alias fzf='fzf --preview "highlight -O ansi -l {}"'
 
 alias ssh='LC_USER=$USER ssh'
 alias attach='attach_or_connect'
+
+alias resize='term_resize'
