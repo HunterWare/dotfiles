@@ -1,0 +1,20 @@
+diff --git a/plugins/vi-mode/vi-mode.plugin.zsh b/plugins/vi-mode/vi-mode.plugin.zsh
+index c91ba05b..bea58185 100644
+--- a/plugins/vi-mode/vi-mode.plugin.zsh
++++ b/plugins/vi-mode/vi-mode.plugin.zsh
+@@ -24,9 +24,12 @@ bindkey -M vicmd '^J' vi-accept-line
+ bindkey -M vicmd '^M' vi-accept-line
+ 
+ # allow v to edit the command line (standard behaviour)
+-autoload -Uz edit-command-line
+-zle -N edit-command-line
+-bindkey -M vicmd 'v' edit-command-line
++autoload is-at-least
++if ! is-at-least 5.0.8; then
++    autoload -Uz edit-command-line
++    zle -N edit-command-line
++    bindkey -M vicmd 'v' edit-command-line
++fi
+ 
+ # allow ctrl-p, ctrl-n for navigate history (standard behaviour)
+ bindkey '^P' up-history
