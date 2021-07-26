@@ -140,9 +140,6 @@ POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="\u2570\U2500${user_symbol} "
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs vi_mode background_jobs status command_execution_time)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 
-# VI mode bindings
-bindkey -M viins 'jk' vi-cmd-mode
-KEYTIMEOUT=20
 
 [ -f ~/.fzf.zsh ]   && source ~/.fzf.zsh
 [ -f ~/.functions ] && source ~/.functions
