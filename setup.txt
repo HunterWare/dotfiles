@@ -4,12 +4,45 @@
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # brew install
-brew install htop xtitle mosh
-brew install vim --with-override-system-vi --with-python3 --with-luajit
-brew install colordiff ripgrep vim cscope neovim sift fzf xz stow global telnet highlight mas the_silver_searcher
-sudo pip3 install neovim
+brew install colordiff ripgrep vim cscope neovim sift fzf xz stow global telnet highlight mas the_silver_searcher htop xtitle tmux
+sudo pip3 install pynvim
 
-# Switch iTerm to Solarized Dark and update
+brew tap homebrew/cask-fonts
+brew install font-fira-code-nerd-font
+
+brew install --cask stats
+brew install --cask monitorcontrol
+
+
+### Update iTerm2 prefs
+# General - Selection
+#   Triple-click selects (off)
+#   Applications in terminal may access clipboard (on)
+# Appearance - Windows
+#   Show window number (off)
+#   Hide scrollbars (on)
+# Profiles - Colors
+#   Solarized Dark
+# Profiles - Text
+#   Font FiraCode Nerd Font Mono
+#   Use built-in Powerline (on)
+# Profiles - Window
+#   Size 100x50
+#   Use transparency (off)
+# Profiles - Terminal
+#   Scrollback (20k)
+#   Disable session-initiated window resizing (Off)
+#   Terminal may report window title (on)
+# Pointer - General
+#   All off
+# Pointer - Bindings
+#   Remove all
+# Advanced
+#   Drawing - Underline OSC 8 hyperlinks (off)
+#   General - Perform dictionary lookups (off)
+#   Mouse - Underline Semantic (off)
+
+### Switch iTerm to Solarized Dark and update
 # Selection backgroun 073642 -> eee8d5
 # Cursor color        839496 -> fdf6e3
 
@@ -67,7 +100,7 @@ sudo apt install apt-file build-essential global emacs git silversearcher-ag vim
 ########## Setup tools
 ##########
 # Setup neovim
-mkdir .vim
+mkdir -p .vim/backup
 mkdir .config
 ln -s ~/.vim ~/.config/nvim
 ln -s ~/.vimrc ~/.config/nvim/init.vim
