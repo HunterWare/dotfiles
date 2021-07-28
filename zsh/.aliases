@@ -1,3 +1,4 @@
+# favorite aliases
 alias ll='ls -Fl'
 alias la='ls -aFl'
 
