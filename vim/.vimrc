@@ -515,6 +515,9 @@ command! -bang -nargs=* Ag
   \                         : fzf#vim#with_preview('right:50%:hidden', '?'),
   \                 <bang>0)
 
+" Empty value to disable preview window altogether
+let g:fzf_preview_window = []
+
 
 " =============== Deoplete ===============
 let g:deoplete#enable_at_startup = 1
