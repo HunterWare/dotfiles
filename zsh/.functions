@@ -1,3 +1,5 @@
+# Functions for zsh
+
 # pathmunge VAR_NAME /path/to/stuff (after)
 pathmunge() {
     local pathlist
