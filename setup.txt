@@ -7,10 +7,12 @@
 brew install colordiff ripgrep vim cscope neovim sift fzf xz stow global telnet highlight mas the_silver_searcher htop xtitle tmux
 sudo pip3 install pynvim
 
+brew install --cask iterm2
+
 brew tap homebrew/cask-fonts
 brew install font-fira-code-nerd-font
+brew install font-iosevka-nerd-font
 
-brew install --cask stats
 brew install --cask monitorcontrol
 
 
@@ -33,6 +35,7 @@ brew install --cask monitorcontrol
 #   Scrollback (20k)
 #   Disable session-initiated window resizing (Off)
 #   Terminal may report window title (on)
+#   Notifications, filter, turn off Bell & Session Ended
 # Pointer - General
 #   All off
 # Pointer - Bindings
@@ -71,7 +74,7 @@ sudo apt install build-essential global emacs git silversearcher-ag vim cscope z
 sudo apt install software-properties-common
 sudo add-apt-repository ppa:neovim-ppa/stable
 sudo apt update
-sudo apt install neovim python-dev python-pip python3-dev python3-pip lua-nvim
+sudo apt install neovim python3-dev python3-pip lua-nvim
 pip3 install neovim
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
 sudo update-alternatives --config vi

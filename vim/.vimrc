@@ -7,11 +7,6 @@ let mapleader = ','
 let maplocalleader = ","
 nnoremap <leader>, :normal ,<CR>:<CR>
 
-inoremap jk <ESC>
-"vnoremap jk <ESC>
-
-nnoremap ; :
-
 set updatetime=250
 
 autocmd InsertEnter * set timeoutlen=250
@@ -52,6 +47,7 @@ command NoPaste set nopaste | set signcolumn=yes | GitGutterEnable | set rnu nu
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 command SudoWrite w !sudo tee > /dev/null %
 
+" Highlight lines over 100 characters
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength '\%>100v.\+'
 
@@ -106,73 +102,106 @@ else
     set guifont=Monospace\ 12                           " Linux
 endif
 
-set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
-let dein_path = expand('~/.vim/dein')
-
-if dein#load_state(dein_path)
-    call dein#begin(dein_path)
-    call dein#add('Shougo/dein.vim')
-
-    call dein#add('Shougo/deoplete.nvim')
-    if !has('nvim')
-        call dein#add('roxma/nvim-yarp')
-        call dein#add('roxma/vim-hug-neovim-rpc')
-    endif
-
-    call dein#add('Shougo/vimshell')
-    call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-
-    call dein#add('junegunn/vim-easy-align')
-    call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
-    call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
-
-    call dein#add('vim-syntastic/syntastic')
-    call dein#add('nathanaelkane/vim-indent-guides')
-    call dein#add('HunterWare/tmux-navigate')
-
-    call dein#add('tmux-plugins/vim-tmux-focus-events')
-
-    "call dein#add('Raimondi/delimitMate', {'on_map' : { 'i' : ['(', '[', '{' ] }})
-    "call dein#add('terryma/vim-multiple-cursors', {
-    "       \ 'on_map' : { 'n' : ['<C-n>', '<C-p>'], 'x' : '<C-n>'}})
-
-    call dein#add('airblade/vim-gitgutter')
-
-    call dein#add('ludovicchabant/vim-gutentags')
-    call dein#add('skywind3000/gutentags_plus')
-
-    call dein#add('majutsushi/tagbar')
-
-    call dein#add('tpope/vim-repeat', {'on_map' : '.'})
-    call dein#add('tpope/vim-abolish')
-    call dein#add('tpope/vim-fugitive', {
-            \ 'on_cmd': ['Git', 'Gstatus', 'Glog', 'Gcommit', 'Gblame', 'Ggrep', 'Gdiff']})
-    call dein#add('tpope/vim-surround', {
-            \ 'on_map': {'n' : ['cs', 'ds', 'ys'], 'x' : 'S'}, 'depends' : 'vim-repeat'})
-    call dein#add('tpope/vim-unimpaired')
-
-    call dein#add('justinmk/vim-sneak', {'depends' : 'vim-repeat'})
-    call dein#add('rhysd/clever-f.vim')
-
-    call dein#add('scrooloose/nerdtree', {'on_cmd': 'NERDTreeToggle'})
-    call dein#add('scrooloose/nerdcommenter')
-    call dein#add('mbbill/undotree')
-
-    call dein#add('icymind/NeoSolarized')
-
-    call dein#add('vim-airline/vim-airline')
-    call dein#add('vim-airline/vim-airline-themes')
-
-    call dein#add('Shougo/denite.nvim')
-    call dein#add('ozelentok/denite-gtags')
-
-    call dein#end()
-    call dein#save_state()
+" Install vim-plug if not found
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-if dein#check_install()
-    call dein#install()
+" Run PlugInstall if there are missing plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \| PlugInstall --sync | source $MYVIMRC
+  \| endif
+
+function! Cond(cond, ...)
+  let opts = get(a:000, 0, {})
+  return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
+endfunction
+"Plug 'benekastah/neomake', Cond(has('nvim'))
+
+call plug#begin()
+Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'HunterWare/tmux-navigate'
+
+Plug 'tmux-plugins/vim-tmux-focus-events'
+
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive', {
+        \ 'on_cmd': ['Git', 'Gstatus', 'Glog', 'Gcommit', 'Gblame', 'Ggrep', 'Gdiff']}
+
+"Plug 'ludovicchabant/vim-gutentags'
+"Plug 'skywind3000/gutentags_plus'
+
+Plug 'majutsushi/tagbar'
+
+Plug 'tpope/vim-repeat', {'on_map' : '.'}
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-surround', {
+        \ 'on_map': {'n' : ['cs', 'ds', 'ys'], 'x' : 'S'}, 'depends' : 'vim-repeat'}
+Plug 'tpope/vim-unimpaired'
+
+Plug 'justinmk/vim-sneak', {'depends' : 'vim-repeat'}
+Plug 'rhysd/clever-f.vim'
+
+Plug 'scrooloose/nerdtree', {'on_cmd': 'NERDTreeToggle'}
+Plug 'scrooloose/nerdcommenter'
+Plug 'mbbill/undotree'
+
+Plug 'NLKNguyen/papercolor-theme'
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+"Plug 'hoob3rt/lualine.nvim'
+
+if has('nvim')
+    Plug 'neovim/nvim-lspconfig'
+
+    Plug 'nvim-lua/completion-nvim'
+
+    Plug 'nvim-lua/popup.nvim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+
+    Plug 'nvim-treesitter/nvim-treesitter'
+
+    Plug 'glepnir/lspsaga.nvim'
+
+    Plug 'TimUntersberger/neogit'
 endif
+call plug#end()
+
+" completion-nvim
+"let g:completion_matching_ignore_case = 1
+"let g:completion_matching_smart_case = 1
+
+set completeopt=menuone,noinsert,noselect
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" telescope
+nnoremap <silent> ;f <cmd>Telescope find_files<cr>
+nnoremap <silent> ;r <cmd>Telescope live_grep<cr>
+nnoremap <silent> \\ <cmd>Telescope buffers<cr>
+nnoremap <silent> ;; <cmd>Telescope help_tags<cr>
+
+"require('telescope').load_extension('fzf')
+
+"local actions = require('telescope.actions')
+"require('telescope').setup{
+"  defaults = {
+"    mappings = {
+"      n = {
+"        ["q"] = actions.close
+"      },
+"    },
+"  }
+"}
 
 
 " Utility checks for OS dependance
@@ -373,13 +402,12 @@ let g:sneak#label_esc = "<CR>"
 "omap t <Plug>Sneak_t
 "omap T <Plug>Sneak_T
 
-" =============== clever-f ===============
 
+" =============== clever-f ===============
 let g:clever_f_chars_match_any_signs = ';'
 
 
 " =============== vim-easy-align ===============
-
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
@@ -402,7 +430,7 @@ elseif executable('ack')
 endif
 
 
-" =============== solarized ===============
+" =============== Theme Stuff ===============
 " Helps with vim inside of screen/tmux
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -412,15 +440,13 @@ endif
 
 set termguicolors
 set background=dark
-colorscheme NeoSolarized
 
-"let g:solarized_termtrans=1
-"let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"colorscheme NeoSolarized
+colorscheme PaperColor
 
 
 " =============== airline ===============
-let g:airline_theme='solarized'
+"let g:airline_theme='solarized'
 
 let g:airline_powerline_fonts=1
 
@@ -435,47 +461,6 @@ let g:airline#extensions#branch#enabled = 0
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 let g:indent_guides_enable_on_vim_startup = 1
-
-
-" =============== syntastic ===============
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-"let g:syntastic_debug = 3
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-let g:syntastic_c_include_dirs = [ $WS.'/ifcs/include',
-                                \  $WS.'/ifcs/src',
-                                \  $WS.'/ifcs/drivers/src/linux_module/ipd_enet',
-                                \  $WS.'/ifcs/test/arm/include',
-                                \  $WS.'/ifcs/test/cengine/include',
-                                \  $WS.'/pen/include',
-                                \  $WS.'/pen/include/emulation',
-                                \  $WS.'/pen/include/emulation_cmn',
-                                \  $WS.'/pen/include/emulation_k2',
-                                \  $WS.'/pen/include/emulation_tl',
-                                \  $TARGET_KERNEL.'/include',
-                                \ '../include',
-                                \'include' ]
-let g:syntastic_c_compiler_options = '-DMCUNUM=0 -std=c99'
-let g:syntastic_c_remove_include_errors = 1
-
-let g:syntastic_cpp_include_dirs = [ $ZEBU_ROOT.'/include',
-                                \ $ZEBU_IP_ROOT.'/include']
-let g:syntastic_cpp_compiler_options = '-D_GLIBCXX_USE_CXX11_ABI=0'
-
-"disable syntastic on a per buffer basis (some work files blow it up)
-function! SyntasticDisableBuffer()
-    let b:syntastic_skip_checks = 1
-    SyntasticReset
-    echo 'Syntastic disabled for this buffer'
-endfunction
-command! SyntasticDisableBuffer call SyntasticDisableBuffer()
 
 
 " =============== tagbar ===============
@@ -533,88 +518,88 @@ endfunction
 inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 
 
-" =============== denite ===============
-call denite#custom#map(
-      \ 'insert',
-      \ '<C-n>',
-      \ '<denite:move_to_next_line>',
-      \ 'noremap'
-      \)
-call denite#custom#map(
-      \ 'insert',
-      \ '<C-p>',
-      \ '<denite:move_to_previous_line>',
-      \ 'noremap'
-      \)
-
-
-call denite#custom#var('grep', 'command', ['ag'])
-call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', [])
-call denite#custom#var('grep', 'separator', ['--'])
-call denite#custom#var('grep', 'final_opts', [])
-
-" Use Ag to search for files from current directory
-call denite#custom#var('file/rec', 'command',
-    \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-
-" Use git to seach for files in project
-call denite#custom#var('file/git', 'command',
-    \ ['git', 'ls-files', '-co', '--exclude-standard'])
-
-" Change matchers.
-call denite#custom#source(
-    \ 'file_git', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
-call denite#custom#source(
-    \ 'file_rec', 'matchers', ['matcher_fuzzy'])
-
-call denite#custom#option('default', 'prompt', '➤ ')
-
-function FindProjectRoot()
-    let l:scm = {'type': '', 'root': ''}
-    let l:scm_list = ['.root', '.git', '.hg', '.svn']
-
-    for l:item in l:scm_list
-        let l:dir = finddir(l:item, '.;')
-        if !empty(l:dir)
-            let l:scm['type'] = l:item
-            let l:scm['root'] = substitute(l:dir, '/' . l:scm['type'], '', 'g')
-            return l:scm
-        endif
-    endfor
-
-    return l:scm
-endfunction
-
-function DoDenite()
-    let l:result = FindProjectRoot()
-    if (l:result['type'] ==? '.git')
-        execute "DeniteProjectDir -path=". l:result['root'] "file/git"
-    else
-        execute "DeniteProjectDir -path=". l:result['root'] "file/rec"
-    endif
-endfunction
-
-nnoremap <silent> <C-p> :<C-u>call DoDenite()<CR>
-
-" Change default prompt
-call denite#custom#option('default', 'prompt', '>')
-
-" Change ignore_globs
-call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-        \ [ '.git/', '.ropeproject/', '__pycache__/',
-        \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
-
-nnoremap <leader>a :DeniteCursorWord -buffer-name=gtags_context gtags_context<cr>
-nnoremap <leader>d :DeniteCursorWord -buffer-name=gtags_def gtags_def<cr>
-nnoremap <leader>r :DeniteCursorWord -buffer-name=gtags_ref gtags_ref<cr>
-nnoremap <leader>g :DeniteCursorWord -buffer-name=gtags_grep gtags_grep<cr>
-nnoremap <leader>t :Denite -buffer-name=gtags_completion gtags_completion<cr>
-nnoremap <leader>f :Denite -buffer-name=gtags_file gtags_file<cr>
-nnoremap <leader>p :Denite -buffer-name=gtags_path gtags_path<cr>
-
-autocmd QuickFixCmdPost *grep* cwindow
+"" =============== denite ===============
+"call denite#custom#map(
+"      \ 'insert',
+"      \ '<C-n>',
+"      \ '<denite:move_to_next_line>',
+"      \ 'noremap'
+"      \)
+"call denite#custom#map(
+"      \ 'insert',
+"      \ '<C-p>',
+"      \ '<denite:move_to_previous_line>',
+"      \ 'noremap'
+"      \)
+"
+"
+"call denite#custom#var('grep', 'command', ['ag'])
+"call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep'])
+"call denite#custom#var('grep', 'recursive_opts', [])
+"call denite#custom#var('grep', 'pattern_opt', [])
+"call denite#custom#var('grep', 'separator', ['--'])
+"call denite#custom#var('grep', 'final_opts', [])
+"
+"" Use Ag to search for files from current directory
+"call denite#custom#var('file/rec', 'command',
+"    \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+"
+"" Use git to seach for files in project
+"call denite#custom#var('file/git', 'command',
+"    \ ['git', 'ls-files', '-co', '--exclude-standard'])
+"
+"" Change matchers.
+"call denite#custom#source(
+"    \ 'file_git', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
+"call denite#custom#source(
+"    \ 'file_rec', 'matchers', ['matcher_fuzzy'])
+"
+"call denite#custom#option('default', 'prompt', '➤ ')
+"
+"function FindProjectRoot()
+"    let l:scm = {'type': '', 'root': ''}
+"    let l:scm_list = ['.root', '.git', '.hg', '.svn']
+"
+"    for l:item in l:scm_list
+"        let l:dir = finddir(l:item, '.;')
+"        if !empty(l:dir)
+"            let l:scm['type'] = l:item
+"            let l:scm['root'] = substitute(l:dir, '/' . l:scm['type'], '', 'g')
+"            return l:scm
+"        endif
+"    endfor
+"
+"    return l:scm
+"endfunction
+"
+"function DoDenite()
+"    let l:result = FindProjectRoot()
+"    if (l:result['type'] ==? '.git')
+"        execute "DeniteProjectDir -path=". l:result['root'] "file/git"
+"    else
+"        execute "DeniteProjectDir -path=". l:result['root'] "file/rec"
+"    endif
+"endfunction
+"
+"nnoremap <silent> <C-p> :<C-u>call DoDenite()<CR>
+"
+"" Change default prompt
+"call denite#custom#option('default', 'prompt', '>')
+"
+"" Change ignore_globs
+"call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+"        \ [ '.git/', '.ropeproject/', '__pycache__/',
+"        \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+"
+"nnoremap <leader>a :DeniteCursorWord -buffer-name=gtags_context gtags_context<cr>
+"nnoremap <leader>d :DeniteCursorWord -buffer-name=gtags_def gtags_def<cr>
+"nnoremap <leader>r :DeniteCursorWord -buffer-name=gtags_ref gtags_ref<cr>
+"nnoremap <leader>g :DeniteCursorWord -buffer-name=gtags_grep gtags_grep<cr>
+"nnoremap <leader>t :Denite -buffer-name=gtags_completion gtags_completion<cr>
+"nnoremap <leader>f :Denite -buffer-name=gtags_file gtags_file<cr>
+"nnoremap <leader>p :Denite -buffer-name=gtags_path gtags_path<cr>
+"
+"autocmd QuickFixCmdPost *grep* cwindow
 
 " =============== Terminal ===============
 if has('nvim')
