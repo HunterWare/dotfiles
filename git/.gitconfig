@@ -1,0 +1,33 @@
+[user]
+	name = Hunter Ware
+	email = hunter.ware@gmail.com
+[credential]
+	helper = store
+[http]
+	sslverify = false
+[core]
+	editor = nvim
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+	ui = true
+	pager = true
+[alias]
+	ci = commit -v
+	co = checkout
+	st = status
+	lg = log --color --graph --decorate --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	lgd = log --color --graph --decorate --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit
+	hunter = log --color --graph --decorate --pretty=format:'%C(auto,yellow)%h%C(auto,magenta)% G? %C(auto,blue)%>(15,trunc)%ad %C(auto,green)%<(15,trunc)%aN%C(auto,reset)%s%C(auto,red)% gD% D' --abbrev-commit
+	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --stat
+	l = "!git lg | head -10"
+#[push]
+#	default = simple
+[fetch]
+	prune = true
+[pull]
+	rebase = merges
+[rebase]
+	autoStash = true
