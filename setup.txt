@@ -23,6 +23,7 @@ brew install --cask monitorcontrol
 # Appearance - Windows
 #   Show window number (off)
 #   Hide scrollbars (on)
+#   Show line under title bar (off)
 # Profiles - Colors
 #   Solarized Dark
 # Profiles - Text
@@ -39,11 +40,12 @@ brew install --cask monitorcontrol
 # Pointer - General
 #   All off
 # Pointer - Bindings
-#   Remove all
+#   Remove all or click bindings
 # Advanced
 #   Drawing - Underline OSC 8 hyperlinks (off)
 #   General - Perform dictionary lookups (off)
 #   Mouse - Underline Semantic (off)
+
 
 ### Switch iTerm to Solarized Dark and update
 # Selection backgroun 073642 -> eee8d5
