@@ -31,6 +31,8 @@ set correct=all
 set autocorrect
 set autolist = true
 
+[ -f ~/.fzf-compl.bash ] && source ~/.fzf-compl.bash
+[ -f ~/.fzf-keys.bash ]  && source ~/.fzf-keys.bash
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 [ -f ~/.functions ] && source ~/.functions
