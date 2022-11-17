@@ -36,9 +36,7 @@ command ToUnix set ff=unix
 vnoremap > >gv
 vnoremap < <gv
 
-"nnoremap <silent> + :exe "resize " . (winheight(0) * 3/2)<CR>
 nnoremap <silent> + :resize +1<CR>
-"nnoremap <silent> - :exe "resize " . (winheight(0) * 2/3)<CR>
 nnoremap <silent> - :resize -1<CR>
 
 command Paste set paste | set signcolumn=no | GitGutterDisable | set nornu nonu
@@ -349,18 +347,28 @@ if &t_Co == 8 && $TERM !~# '^linux\|^Eterm'
     set t_Co=16
 endif
 
+" Always switch to the current file directory
+autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
+
 " Ensure C-U and C-W are undoable
 inoremap <C-u> <C-g>u<C-u>
 inoremap <C-w> <C-g>u<C-w>
 
+" split movement with C-move keys
+noremap <C-h> <C-W>h
+noremap <C-j> <C-W>j
+noremap <C-k> <C-W>k
+noremap <C-l> <C-W>l
+
+
 " use tmux over OSX clipboard if we are in it. You want this before setting
-" the clipboard variable
+" the clipboard variable.  Also use OSC52 when copying
 if has('nvim') && exists('$TMUX') && executable('tmux')
     let g:clipboard = {
           \   'name': 'myClipboard',
           \   'copy': {
-          \      '+': 'tmux load-buffer -',
-          \      '*': 'tmux load-buffer -',
+          \      '+': ['tmux', 'load-buffer', '-w', '-'],
+          \      '*': ['tmux', 'load-buffer', '-w', '-'],
           \    },
           \   'paste': {
           \      '+': 'tmux save-buffer -',
@@ -377,9 +385,6 @@ if has("clipboard")
         set clipboard+=unnamedplus
     endif
 endif
-
-" Always switch to the current file directory
-autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
 
 
 " =============== vim-sneak ===============
@@ -517,89 +522,6 @@ function! Tab_Or_Complete()
 endfunction
 inoremap <Tab> <C-R>=Tab_Or_Complete()<CR>
 
-
-"" =============== denite ===============
-"call denite#custom#map(
-"      \ 'insert',
-"      \ '<C-n>',
-"      \ '<denite:move_to_next_line>',
-"      \ 'noremap'
-"      \)
-"call denite#custom#map(
-"      \ 'insert',
-"      \ '<C-p>',
-"      \ '<denite:move_to_previous_line>',
-"      \ 'noremap'
-"      \)
-"
-"
-"call denite#custom#var('grep', 'command', ['ag'])
-"call denite#custom#var('grep', 'default_opts', ['-i', '--vimgrep'])
-"call denite#custom#var('grep', 'recursive_opts', [])
-"call denite#custom#var('grep', 'pattern_opt', [])
-"call denite#custom#var('grep', 'separator', ['--'])
-"call denite#custom#var('grep', 'final_opts', [])
-"
-"" Use Ag to search for files from current directory
-"call denite#custom#var('file/rec', 'command',
-"    \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-"
-"" Use git to seach for files in project
-"call denite#custom#var('file/git', 'command',
-"    \ ['git', 'ls-files', '-co', '--exclude-standard'])
-"
-"" Change matchers.
-"call denite#custom#source(
-"    \ 'file_git', 'matchers', ['matcher_fuzzy', 'matcher_project_files'])
-"call denite#custom#source(
-"    \ 'file_rec', 'matchers', ['matcher_fuzzy'])
-"
-"call denite#custom#option('default', 'prompt', '➤ ')
-"
-"function FindProjectRoot()
-"    let l:scm = {'type': '', 'root': ''}
-"    let l:scm_list = ['.root', '.git', '.hg', '.svn']
-"
-"    for l:item in l:scm_list
-"        let l:dir = finddir(l:item, '.;')
-"        if !empty(l:dir)
-"            let l:scm['type'] = l:item
-"            let l:scm['root'] = substitute(l:dir, '/' . l:scm['type'], '', 'g')
-"            return l:scm
-"        endif
-"    endfor
-"
-"    return l:scm
-"endfunction
-"
-"function DoDenite()
-"    let l:result = FindProjectRoot()
-"    if (l:result['type'] ==? '.git')
-"        execute "DeniteProjectDir -path=". l:result['root'] "file/git"
-"    else
-"        execute "DeniteProjectDir -path=". l:result['root'] "file/rec"
-"    endif
-"endfunction
-"
-"nnoremap <silent> <C-p> :<C-u>call DoDenite()<CR>
-"
-"" Change default prompt
-"call denite#custom#option('default', 'prompt', '>')
-"
-"" Change ignore_globs
-"call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-"        \ [ '.git/', '.ropeproject/', '__pycache__/',
-"        \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
-"
-"nnoremap <leader>a :DeniteCursorWord -buffer-name=gtags_context gtags_context<cr>
-"nnoremap <leader>d :DeniteCursorWord -buffer-name=gtags_def gtags_def<cr>
-"nnoremap <leader>r :DeniteCursorWord -buffer-name=gtags_ref gtags_ref<cr>
-"nnoremap <leader>g :DeniteCursorWord -buffer-name=gtags_grep gtags_grep<cr>
-"nnoremap <leader>t :Denite -buffer-name=gtags_completion gtags_completion<cr>
-"nnoremap <leader>f :Denite -buffer-name=gtags_file gtags_file<cr>
-"nnoremap <leader>p :Denite -buffer-name=gtags_path gtags_path<cr>
-"
-"autocmd QuickFixCmdPost *grep* cwindow
 
 " =============== Terminal ===============
 if has('nvim')
