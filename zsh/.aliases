@@ -19,3 +19,5 @@ alias ssh='LC_USER=$USER ssh'
 alias attach='attach_or_connect'
 
 alias resize='term_resize'
+
+alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
