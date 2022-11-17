@@ -141,7 +141,9 @@ POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs vi_mode background_jobs statu
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 
 
-[ -f ~/.fzf.zsh ]   && source ~/.fzf.zsh
+[ -f ~/.fzf-compl.zsh ] && source ~/.fzf-compl.zsh
+[ -f ~/.fzf-keys.zsh ]  && source ~/.fzf-keys.zsh
+
 [ -f ~/.functions ] && source ~/.functions
 [ -f ~/.aliases ]   && source ~/.aliases
 [ -f ~/.exports ]   && source ~/.exports
