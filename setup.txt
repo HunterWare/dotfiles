@@ -15,6 +15,9 @@ brew install font-iosevka-nerd-font
 
 brew install --cask monitorcontrol
 
+### Add tmux-256colors to ncurses
+/opt/homebrew/Cellar/ncurses/6.3/bin/infocmp -x tmux-256color >tmux-256color.src
+sudo /usr/bin/tic -x tmux-256color.src
 
 ### Update iTerm2 prefs
 # General - Selection
