@@ -1,6 +1,5 @@
 export FZF_DEFAULT_COMMAND='ag -l -g ""'
-export FZF_DEFAULT_OPTS="--tiebreak=begin"
-
+export FZF_DEFAULT_OPTS='--tiebreak=begin --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
 export LESS="-RFX"
 
 # by default: export WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>'
@@ -9,3 +8,5 @@ export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
 # Sort listing with Caps first
 export LC_COLLATE="C"
+
+export PATH=$PATH:$HOME/bin:$HOME/.local/share/bob/nvim-bin
