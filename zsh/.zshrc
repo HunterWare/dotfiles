@@ -141,7 +141,8 @@ POWERLEVEL9K_MULTILINE_LAST_PROMPT_PREFIX="\u2570\U2500${user_symbol} "
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(context dir vcs vi_mode background_jobs status command_execution_time)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf-keys.zsh ] && source ~/.fzf-keys.zsh
+[ -f ~/.fzf-compl.zsh ] && source ~/.fzf-compl.zsh
 
 [ -f ~/.functions ] && source ~/.functions
 [ -f ~/.aliases ]   && source ~/.aliases
@@ -150,3 +151,8 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 
 # clean up exit code from above sources
 :
+
+. "$HOME/.cargo/env"
+
+# Created by `pipx` on 2024-12-24 22:42:06
+export PATH="$PATH:/Users/hunter/.local/bin"
