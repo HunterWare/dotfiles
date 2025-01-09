@@ -71,22 +71,6 @@ sudo yum install colordiff cscope neovim stow global highlight the_silver_search
 sudo yum install python2-pip pythong34-devel python34-pip
 sudo pip3 install typing neovim
 
-########## Ubuntu 16.04
-##########
-sudo apt install build-essential global emacs git silversearcher-ag vim cscope zsh highlight curl
-
-# install neovim
-sudo apt install software-properties-common
-sudo add-apt-repository ppa:neovim-ppa/stable
-sudo apt update
-sudo apt install neovim python3-dev python3-pip lua-nvim
-pip3 install neovim
-sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
-sudo update-alternatives --config vi
-sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
-sudo update-alternatives --config vim
-sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
-sudo update-alternatives --config editor
 
 # Update VISUDO
 sudo visudo
@@ -100,23 +84,35 @@ sudo vi /etc/fstab
     # Add ".host:/ /mnt/hgfs fuse.vmhgfs-fuse allow_other 0 0"
 
 
-########## Raspberry Pi
+########## Debian based 
 ##########
-sudo apt install apt-file build-essential global emacs git silversearcher-ag vim cscope exuberant-ctags zsh highlight stow colordiff tmux neovim
+sudo apt install apt-file build-essential emacs git silversearcher-ag vim zsh highlight stow colordiff ripgrep xclip hexedit unzip lua5.1 luarocks
+sudo apt remove tmux neovim fzf
+
+# Install Rust(up)
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Install bob-nvim
+cargo install bob-nvim
+bob install stable
+bob use stable
+
+# Install tmux
+sudo apt install libevent-dev ncurses-dev build-essential bison pkg-config libutempter-dev
+wget https://github.com/tmux/tmux/releases/download/3.5a/tmux-3.5a.tar.gz
+tar -xf tmux-3.5a.tar.gz
+cd tmux-3.5a
+./configure & make
+sudo make install
+
+# Install fzf
+(github, run install, cp bin over to .local/bin)
+
+# Install wezterm
 
 
 ########## Setup tools
 ##########
-# Setup neovim
-mkdir -p .vim/backup
-mkdir .config
-ln -s ~/.vim ~/.config/nvim
-ln -s ~/.vimrc ~/.config/nvim/init.vim
-
-# Install dein
-curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
-sh ./installer.sh ~/.vim/dein
-rm installer.sh
 
 # Install tpm (tmux)
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -134,22 +130,13 @@ patch -d ~/.oh-my-zsh -p1 < ~/.dotfiles/oh-my-zsh-colored-man.diff
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
 # Stow
-git clone https://github.com/HunterWare/dotfiles .dotfiles
+git clone https://github.com/HunterWare/dotfiles ~/.dotfiles
 cd .dotfiles
 mv ~/.bashrc ~/.bashrc.orig
 mv ~/.zshrc ~/.zshrc.orig
 stow bash emacs tmux vim zsh
+stow neovim -t ~/.config
 
 # Fix solarized theme
 patch -p1 ~/.emacs.d/elpa/color-theme-solarized-20171024.825/solarized-definitions.el < solarized-definitions.el.diff
 
-
-########## Extra Stuff
-##########
-# neovim
-sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
-mkdir ~/tools && cd ~/tools
-git clone https://github.com/neovim/neovim.git
-cd neovim
-make CMAKE_BUILD_TYPE=RelWithDebInfo
-sudo make install
