@@ -87,7 +87,9 @@ sudo vi /etc/fstab
 ########## Debian based 
 ##########
 sudo apt install apt-file build-essential emacs git silversearcher-ag vim zsh highlight stow colordiff ripgrep xclip hexedit unzip lua5.1 luarocks
+sudo apt install libevent-dev ncurses-dev bison pkg-config libutempter-dev
 sudo apt remove tmux neovim fzf
+
 
 # Install Rust(up)
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -106,9 +108,21 @@ cd tmux-3.5a
 sudo make install
 
 # Install fzf
-(github, run install, cp bin over to .local/bin)
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
+cp bins over to .local/bin
+
+# Install fish
+sudo apt-add-repository ppa:fish-shell/release-3
+sudo apt update
+sudo apt install fish
+
+# Install Starship.rs
+curl -sS https://starship.rs/install.sh | sh
+
 
 # Install wezterm
+cargo install wezterm
 
 
 ########## Setup tools
