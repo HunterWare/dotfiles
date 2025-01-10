@@ -148,8 +148,7 @@ git clone https://github.com/HunterWare/dotfiles ~/.dotfiles
 cd .dotfiles
 mv ~/.bashrc ~/.bashrc.orig
 mv ~/.zshrc ~/.zshrc.orig
-stow bash emacs tmux vim zsh
-stow neovim -t ~/.config
+stow bash emacs tmux vim zsh neovim fish
 
 # Fix solarized theme
 patch -p1 ~/.emacs.d/elpa/color-theme-solarized-20171024.825/solarized-definitions.el < solarized-definitions.el.diff
