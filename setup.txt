@@ -5,6 +5,7 @@
 
 # brew install
 brew install colordiff ripgrep vim cscope neovim sift fzf xz stow global telnet highlight mas the_silver_searcher htop xtitle tmux
+brew install fd bat
 sudo pip3 install pynvim
 
 brew install --cask iterm2
@@ -90,6 +91,10 @@ sudo apt install apt-file build-essential emacs git silversearcher-ag vim zsh hi
 sudo apt install libevent-dev ncurses-dev bison pkg-config libutempter-dev
 sudo apt remove tmux neovim fzf
 
+sudo apt install bat fd-find
+ln -s $(which batcat) ~/.local/bin/bat
+ln -s $(which fdfind) ~/.local/bin/fd
+
 
 # Install Rust(up)
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -125,8 +130,6 @@ fisher install IlanCosman/tide@v6
 tide configure --auto --style=Rainbow --prompt_colors='True color' --show_time='24-hour format' --rainbow_prompt_separators=Angled --powerline_prompt_heads=Sharp --powerline_prompt_tails=Flat --powerline_prompt_style='Two lines, character' --prompt_connection=Disconnected --powerline_right_prompt_frame=No --prompt_spacing=Compact --icons='Few icons' --transient=No
 
 # Install fzf.fish
-sudo apt install bat
-ln -s /usr/bin/batcat ~/.local/bin/bat
 fisher install PatrickF1/fzf.fish
 fzf_configure_bindings --directory=\ct
 
