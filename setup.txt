@@ -1,5 +1,28 @@
 ########## OSX
 ##########
+
+# Make WiFi play nice
+Add brcmfmac.roamoff=1 brcmfmac.feature_disable=0x282000 to the end of /boot/firmware/cmdline.txt
+
+#This disables a load of Broadcomm firmware offloading which does not work as it should :)
+#https://github.com/raspberrypi/linux/issues/6049#issuecomment-2595167933
+
+# Update RPi5 RAM speed
+# sudo rpi-eeprom-config -e
+[all]
+BOOT_UART=1
+BOOT_ORDER=0xf461
+NET_INSTALL_AT_POWER_ON=1
+SDRAM_BANKLOW=1
+
+# Update RPi5 PCIe for NVME
+# edit /boot/firmware/config.txt
+[all]
+dtparam=pciex1_gen=3
+
+
+########## OSX
+##########
 # install homebrew
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
