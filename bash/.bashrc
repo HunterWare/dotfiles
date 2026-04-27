@@ -31,15 +31,14 @@ set correct=all
 set autocorrect
 set autolist = true
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/.fzf-keys.bash ] && source ~/.fzf-keys.bash
+[ -f ~/.fzf-keys.bash ] && source ~/.fzf-compl.bash
 
 [ -f ~/.functions ] && source ~/.functions
 [ -f ~/.aliases ] && source ~/.aliases
 [ -f ~/.exports ] && source ~/.exports
 
 [ -f ~/.localrc ] && source ~/.localrc
-
-[ -f ~/.cargo/env ] && source ~/.cargo/env
 
 # If you have zsh, run it. Set SHELL properly. If bash was given -c blah then pass blah along
 if [ -x "$(command -v zsh)" ] && [ ! -z "$DO_ZSH" ]; then
@@ -50,5 +49,3 @@ if [ -x "$(command -v zsh)" ] && [ ! -z "$DO_ZSH" ]; then
     SHELL=${ZSH_SHELL} exec zsh -lc "${BASH_EXECUTION_STRING}"
   fi
 fi
-
-. "$HOME/.cargo/env"
