@@ -1,4 +1,4 @@
-########## OSX
+########## RPi5
 ##########
 
 # Make WiFi play nice

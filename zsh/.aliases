@@ -8,7 +8,6 @@ alias pytop='bpytop'
 
 alias vi='nvim'
 alias vimdiff='nvim -d'
-alias vim='stty -ixon && vim'
 
 alias diff='colordiff -u'
 
