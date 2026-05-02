@@ -4,14 +4,12 @@ alias la='ls -aFl'
 
 alias em='emacs -nw'
 
-alias pytop='bpytop'
-
 alias vi='nvim'
 alias vimdiff='nvim -d'
 
 alias diff='colordiff -u'
 
-alias ag='ag --color-line-number="0;33" --color-match="0;35" --color-path="0;97"'
+#alias ag='ag --color-line-number="0;33" --color-match="0;35" --color-path="0;97"'
 alias fzf='fzf --preview "highlight -O ansi -l {}"'
 
 alias ssh='LC_USER=$USER ssh'
