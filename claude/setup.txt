@@ -1,0 +1,34 @@
+########## Claude Code statusline
+##########
+
+# What this is:
+#   A custom statusline for Claude Code (~/.claude/statusline.sh) that
+#   renders model name, context usage %, session tokens + cost, and an
+#   optional monthly usage segment. Dracula color palette.
+#
+# Layout:
+#   Opus 4.7 (1M ctx) | ctx: 42.1K/1.0M (4%) | session: 380.0K tok ($1.25) | month: 12.4M tok ($85.30)
+#
+# Files in this directory:
+#   statusline.sh   the script Claude Code invokes
+#   install.sh      copies statusline.sh into ~/.claude/ and wires it
+#                   into ~/.claude/settings.json via jq
+#
+# Install on a new machine:
+#   git clone <this-dotfiles-repo> ~/.dotfiles    # if not already
+#   ~/.dotfiles/claude/install.sh
+#
+# Requirements:
+#   bash, jq (used by both the statusline itself and install.sh)
+#
+# Optional - monthly usage segment:
+#   statusline.sh reads ~/.claude/statusline-cache/monthly.json and
+#   shells out to ~/.claude/monthly-usage.sh to refresh it in the
+#   background when the cache is older than 5 minutes. If that helper
+#   doesn't exist the monthly segment is simply omitted -- the rest of
+#   the statusline still works. Drop a monthly-usage.sh in ~/.claude/
+#   if you want the segment populated.
+#
+# Customizing:
+#   Edit ~/.dotfiles/claude/statusline.sh, then re-run install.sh.
+#   Colors are 24-bit ANSI in the _fg helpers near the top of the file.
