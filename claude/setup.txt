@@ -7,12 +7,16 @@
 #   optional monthly usage segment. Dracula color palette.
 #
 # Layout:
-#   Opus 4.7 (1M ctx) | ctx: 42.1K/1.0M (4%) | session: 380.0K tok ($1.25) | month: 12.4M tok ($85.30)
+#   Opus 4.7 (1M ctx) | ctx: 42.1K/1.0M (4%) | cur 380.0K tok ($1.25) mon 12.4M tok ($85.30)
 #
 # Files in this directory:
-#   statusline.sh   the script Claude Code invokes
-#   install.sh      copies statusline.sh into ~/.claude/ and wires it
-#                   into ~/.claude/settings.json via jq
+#   statusline.sh     the script Claude Code invokes per render
+#   monthly-usage.sh  background helper -- scans ~/.claude/projects/*.jsonl
+#                     and writes ~/.claude/statusline-cache/monthly.json
+#                     for the statusline to consume. Kicked off by
+#                     statusline.sh when its cache is >5min stale.
+#   install.sh        copies both scripts into ~/.claude/ and wires the
+#                     statusline into ~/.claude/settings.json via jq
 #
 # Install on a new machine:
 #   git clone <this-dotfiles-repo> ~/.dotfiles    # if not already
@@ -21,13 +25,15 @@
 # Requirements:
 #   bash, jq (used by both the statusline itself and install.sh)
 #
-# Optional - monthly usage segment:
-#   statusline.sh reads ~/.claude/statusline-cache/monthly.json and
-#   shells out to ~/.claude/monthly-usage.sh to refresh it in the
-#   background when the cache is older than 5 minutes. If that helper
-#   doesn't exist the monthly segment is simply omitted -- the rest of
-#   the statusline still works. Drop a monthly-usage.sh in ~/.claude/
-#   if you want the segment populated.
+# Monthly usage segment:
+#   monthly-usage.sh scans ~/.claude/projects/**/*.jsonl for the current
+#   month (UTC), sums tokens, and computes cost from a per-million-token
+#   price table baked into the script (opus/sonnet/haiku, standard tier).
+#   Update the prices in monthly-usage.sh when Anthropic changes rates.
+#   No API key required.
+#
+#   If you delete monthly-usage.sh, statusline.sh silently omits the
+#   monthly segment -- the rest of the statusline still works.
 #
 # Customizing:
 #   Edit ~/.dotfiles/claude/statusline.sh, then re-run install.sh.

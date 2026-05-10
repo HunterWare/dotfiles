@@ -96,20 +96,28 @@ if [ "$ctx_size" -gt 0 ] 2>/dev/null; then
     out="${out}${SEP}${C_DIM}ctx:${C_RST} ${ctx_color}$(fmt_k "$cur_total")/$(fmt_k "$ctx_size") (${used_int}%)${C_RST}"
 fi
 
+sess_emitted=0
 if [ "$sess_total" -gt 0 ]; then
-    seg="${C_DIM}session:${C_RST} ${C_GRN}$(fmt_k "$sess_total") tok${C_RST}"
+    seg="${C_DIM}cur ${C_RST}${C_GRN}$(fmt_k "$sess_total") tok${C_RST}"
     if [ -n "$cost_usd" ] && [ "$cost_usd" != "null" ]; then
         seg="${seg} ${C_DIM}(${C_FG}$(fmt_usd "$cost_usd")${C_DIM})${C_RST}"
     fi
     out="${out}${SEP}${seg}"
+    sess_emitted=1
 fi
 
 if [ -n "$monthly_tok" ] && [ "$monthly_tok" -gt 0 ] 2>/dev/null; then
-    seg="${C_DIM}month:${C_RST} ${C_ORG}$(fmt_k "$monthly_tok") tok${C_RST}"
+    seg="${C_DIM}mon ${C_RST}${C_ORG}$(fmt_k "$monthly_tok") tok${C_RST}"
     if [ -n "$monthly_cost" ] && [ "$monthly_cost" != "0" ] && [ "$monthly_cost" != "null" ]; then
         seg="${seg} ${C_DIM}(${C_FG}$(fmt_usd "$monthly_cost")${C_DIM})${C_RST}"
     fi
-    out="${out}${SEP}${seg}"
+    # When cur was emitted, join with a plain space (no separator);
+    # otherwise prepend the standard separator.
+    if [ "$sess_emitted" -eq 1 ]; then
+        out="${out} ${seg}"
+    else
+        out="${out}${SEP}${seg}"
+    fi
 fi
 
 [ "$exceeds" = "true" ] && out="${out}${SEP}${C_YEL}⚠ >200K${C_RST}"

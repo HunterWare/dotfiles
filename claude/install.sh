@@ -3,7 +3,9 @@
 #
 # What it does:
 #   1. Copies statusline.sh into ~/.claude/statusline.sh (executable)
-#   2. Merges the statusLine key into ~/.claude/settings.json so Claude
+#   2. Copies monthly-usage.sh into ~/.claude/monthly-usage.sh (the
+#      background helper that populates the monthly segment cache)
+#   3. Merges the statusLine key into ~/.claude/settings.json so Claude
 #      Code picks it up (creates the file if missing, preserves other
 #      keys if it already exists).
 #
@@ -26,6 +28,9 @@ mkdir -p "$target_dir"
 
 install -m 0755 "$here/statusline.sh" "$target_script"
 echo "installed: $target_script"
+
+install -m 0755 "$here/monthly-usage.sh" "$target_dir/monthly-usage.sh"
+echo "installed: $target_dir/monthly-usage.sh"
 
 # Merge statusLine into settings.json. Use $HOME so the command is portable
 # across machines/users (Claude Code runs the command through a shell).
