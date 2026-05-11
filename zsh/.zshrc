@@ -151,8 +151,3 @@ POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 
 # clean up exit code from above sources
 :
-
-. "$HOME/.cargo/env"
-
-# Created by `pipx` on 2024-12-24 22:42:06
-export PATH="$PATH:/Users/hunter/.local/bin"
