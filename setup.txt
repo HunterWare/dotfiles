@@ -172,6 +172,10 @@ cargo install wezterm
 # Install tpm (tmux)
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
+# Wire up custom dracula-winpane.sh plugin (window:pane index in status-right)
+# Run AFTER plugins have been installed in tmux (prefix-I inside a tmux session):
+ln -sfn ~/.dotfiles/dracula-winpane.sh ~/.tmux/plugins/tmux/scripts/dracula-winpane.sh
+
 # Install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
