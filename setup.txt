@@ -110,14 +110,11 @@ sudo vi /etc/fstab
 
 ########## Debian based 
 ##########
-sudo apt install apt-file build-essential emacs git silversearcher-ag vim zsh highlight stow colordiff ripgrep xclip hexedit unzip lua5.1 luarocks
-sudo apt install libevent-dev ncurses-dev bison pkg-config libutempter-dev
-sudo apt remove tmux neovim fzf
+sudo apt install apt-file build-essential emacs git vim zsh highlight stow colordiff ripgrep xclip hexedit unzip lua5.1 luarocks tmux fzf
+sudo apt install libevent-dev ncurses-dev bison pkg-config libutempter-dev bat fd-find
 
-sudo apt install bat fd-find
 ln -s $(which batcat) ~/.local/bin/bat
 ln -s $(which fdfind) ~/.local/bin/fd
-
 
 # Install Rust(up)
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -127,19 +124,9 @@ cargo install bob-nvim
 bob install stable
 bob use stable
 
-# Install tmux
-sudo apt install libevent-dev ncurses-dev build-essential bison pkg-config libutempter-dev
-wget https://github.com/tmux/tmux/releases/download/3.5a/tmux-3.5a.tar.gz
-tar -xf tmux-3.5a.tar.gz
-cd tmux-3.5a
-./configure & make
-sudo make install
 
-# Install fzf
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install
-cp bins over to .local/bin
-
+########## Extra Things
+##########
 # Install fish
 sudo apt-add-repository ppa:fish-shell/release-3
 sudo apt update
@@ -165,6 +152,9 @@ fisher install urbainvaes/fzf-marks
 # Install wezterm
 cargo install wezterm
 
+# update colored-man-pages colors
+patch -d ~/.oh-my-zsh -p1 < ~/.dotfiles/oh-my-zsh-colored-man.diff
+
 
 ########## Setup tools
 ##########
@@ -182,9 +172,6 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/mas
 # Install powerlevel10k
 git clone https://github.com/romkatv/powerlevel10k ~/.oh-my-zsh/custom/themes/powerlevel10k
 
-# update colored-man-pages colors
-patch -d ~/.oh-my-zsh -p1 < ~/.dotfiles/oh-my-zsh-colored-man.diff
-
 # Install zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
 
@@ -193,8 +180,4 @@ git clone https://github.com/HunterWare/dotfiles ~/.dotfiles
 cd .dotfiles
 mv ~/.bashrc ~/.bashrc.orig
 mv ~/.zshrc ~/.zshrc.orig
-stow bash emacs tmux vim zsh neovim fish
-
-# Fix solarized theme
-patch -p1 ~/.emacs.d/elpa/color-theme-solarized-20171024.825/solarized-definitions.el < solarized-definitions.el.diff
-
+stow bash zsh shell emacs tmux vim neovim fish
