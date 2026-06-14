@@ -13,7 +13,6 @@ alias diff='colordiff -u'
 alias fzf='fzf --preview "highlight -O ansi -l {}"'
 
 alias ssh='LC_USER=$USER ssh'
-alias attach='attach_or_connect'
 
 alias resize='term_resize'
 

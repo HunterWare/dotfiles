@@ -21,18 +21,6 @@ pathmunge() {
     return 0
 }
 
-# attach_or_connect HOST
-function attach_or_connect() {
-    if [[ $# -ne 1 ]]; then
-        echo 'Usage: attach [host]'
-    else
-        ssh -x $1 -t tmux -L iTerm -f '~/.tmux-iTerm.conf' -CC attach
-        if [ "$?" -eq "1" ]; then
-            ssh -x $1 -t tmux -L iTerm -f '~/.tmux-iTerm.conf' -CC
-        fi
-    fi
-}
-
 function term_resize() {
     echo "resize to $1 $2"
     printf "\e[8;$1;$2t"
