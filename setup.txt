@@ -160,11 +160,12 @@ patch -d ~/.oh-my-zsh -p1 < ~/.dotfiles/oh-my-zsh-colored-man.diff
 ##########
 
 # Install tpm (tmux)
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+mkdir -p ~/.config/tmux/plugins
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 
 # Wire up custom dracula-winpane.sh plugin (window:pane index in status-right)
 # Run AFTER plugins have been installed in tmux (prefix-I inside a tmux session):
-ln -sfn ~/.dotfiles/dracula-winpane.sh ~/.tmux/plugins/tmux/scripts/dracula-winpane.sh
+ln -sfn ~/.dotfiles/dracula-winpane.sh ~/.config/tmux/plugins/tmux/scripts/dracula-winpane.sh
 
 # Install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -177,7 +178,7 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/
 
 # Stow
 git clone https://github.com/HunterWare/dotfiles ~/.dotfiles
-cd .dotfiles
+cd ~/.dotfiles
 mv ~/.bashrc ~/.bashrc.orig
 mv ~/.zshrc ~/.zshrc.orig
 stow bash zsh shell emacs tmux vim neovim fish
