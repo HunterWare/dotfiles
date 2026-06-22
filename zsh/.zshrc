@@ -1,6 +1,11 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
+# Keep PATH unique. -U dedups now and on every future add, so nested/re-sourced
+# shells (tmux panes, exec zsh) stop stacking duplicate entries. Because the
+# leftmost copy is kept, prepended local paths stay ahead of system paths.
+typeset -U path PATH
+
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
 
