@@ -46,8 +46,6 @@ used_pct=$(q '.context_window.used_percentage // 0')
 cur_in=$(q   '.context_window.current_usage.input_tokens // 0')
 cur_cw=$(q   '.context_window.current_usage.cache_creation_input_tokens // 0')
 cur_cr=$(q   '.context_window.current_usage.cache_read_input_tokens // 0')
-sess_in=$(q  '.context_window.total_input_tokens // 0')
-sess_out=$(q '.context_window.total_output_tokens // 0')
 cost_usd=$(q '.cost.total_cost_usd // empty')
 exceeds=$(q  '.exceeds_200k_tokens // false')
 
@@ -78,7 +76,6 @@ fmt_k() { awk -v n="$1" 'BEGIN {
 fmt_usd() { awk -v c="$1" 'BEGIN { printf "$%.2f", c }'; }
 
 cur_total=$(( cur_in + cur_cw + cur_cr ))
-sess_total=$(( sess_in + sess_out ))
 
 # Model name — Purple (primary element)
 out="${C_PUR}${model}${C_RST}"
@@ -97,11 +94,8 @@ if [ "$ctx_size" -gt 0 ] 2>/dev/null; then
 fi
 
 sess_emitted=0
-if [ "$sess_total" -gt 0 ]; then
-    seg="${C_DIM}cur ${C_RST}${C_GRN}$(fmt_k "$sess_total") tok${C_RST}"
-    if [ -n "$cost_usd" ] && [ "$cost_usd" != "null" ]; then
-        seg="${seg} ${C_DIM}(${C_FG}$(fmt_usd "$cost_usd")${C_DIM})${C_RST}"
-    fi
+if [ -n "$cost_usd" ] && [ "$cost_usd" != "null" ]; then
+    seg="${C_DIM}sess ${C_RST}${C_GRN}$(fmt_usd "$cost_usd")${C_RST}"
     out="${out}${SEP}${seg}"
     sess_emitted=1
 fi

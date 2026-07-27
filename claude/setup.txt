@@ -3,11 +3,21 @@
 
 # What this is:
 #   A custom statusline for Claude Code (~/.claude/statusline.sh) that
-#   renders model name, context usage %, session tokens + cost, and an
-#   optional monthly usage segment. Dracula color palette.
+#   renders model name, context usage %, session cost, and an optional
+#   monthly usage segment. Dracula color palette.
 #
 # Layout:
-#   Opus 4.7 (1M ctx) | ctx: 42.1K/1.0M (4%) | cur 380.0K tok ($1.25) mon 12.4M tok ($85.30)
+#   Opus 4.7 (1M ctx) | ctx: 42.1K/1.0M (4%) | sess $1.25 mon 12.4M tok ($85.30)
+#
+# Segments:
+#   model   purple; "1M context" is abbreviated to "1M ctx"
+#   ctx     current context tokens / window size (%), where current =
+#           input + cache_creation + cache_read. Cyan <50%, orange 50-79%,
+#           red >=80%
+#   sess    session cost from .cost.total_cost_usd (green). Omitted when
+#           the field is absent
+#   mon     month-to-date tokens + cost (orange), from the monthly cache;
+#           joined to sess with a plain space rather than a separator
 #
 # Files in this directory:
 #   statusline.sh     the script Claude Code invokes per render
