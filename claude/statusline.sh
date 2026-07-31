@@ -90,7 +90,7 @@ if [ "$ctx_size" -gt 0 ] 2>/dev/null; then
     else
         ctx_color="$C_CYN"
     fi
-    out="${out}${SEP}${C_DIM}ctx:${C_RST} ${ctx_color}$(fmt_k "$cur_total")/$(fmt_k "$ctx_size") (${used_int}%)${C_RST}"
+    out="${out}${SEP}${C_DIM}ctx:${C_RST} ${ctx_color}$(fmt_k "$cur_total") (${used_int}%)${C_RST}"
 fi
 
 sess_emitted=0

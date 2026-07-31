@@ -21,12 +21,17 @@ now=$(date +%s)
 find "$HOME/.claude/projects" -name '*.jsonl' -print0 2>/dev/null \
     | xargs -0 -r cat 2>/dev/null \
     | jq -nR --arg prefix "$month" --argjson now "$now" '
+        # Rates verified 2026-07-31. cache-read = 0.1x input, cache-write-5m =
+        # 1.25x, cache-write-1h = 2x. There is no >200k long-context premium on
+        # current models -- 1M context bills at standard rates.
         def price(model):
             (model | ascii_downcase) as $m
-            | if   $m | contains("opus")   then {i:15, o:75, cr:1.5, c5:18.75, c1:30}
-              elif $m | contains("sonnet") then {i:3,  o:15, cr:0.3, c5:3.75,  c1:6}
-              elif $m | contains("haiku")  then {i:1,  o:5,  cr:0.1, c5:1.25,  c1:2}
-              else                              {i:15, o:75, cr:1.5, c5:18.75, c1:30}
+            | if   ($m | contains("fable")) or ($m | contains("mythos"))
+                                            then {i:10, o:50, cr:1.0, c5:12.5,  c1:20}
+              elif ($m | contains("opus"))  then {i:5,  o:25, cr:0.5, c5:6.25,  c1:10}
+              elif ($m | contains("sonnet")) then {i:3, o:15, cr:0.3, c5:3.75,  c1:6}
+              elif ($m | contains("haiku")) then {i:1,  o:5,  cr:0.1, c5:1.25,  c1:2}
+              else                               {i:5,  o:25, cr:0.5, c5:6.25,  c1:10}
               end;
 
         reduce (inputs | fromjson? | select(. != null)) as $r (
