@@ -97,7 +97,16 @@ bindkey -M viins '\ec' fzf-cd-widget
 fzf-history-widget() {
   local selected num
   setopt localoptions noglobsubst noposixbuiltins pipefail no_aliases 2> /dev/null
-  selected=( $(fc -rl 1 | awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+/, "", cmd); if (!seen[cmd]++) print $0 }' |
+  # `-f` adds a "<date> <time>" stamp between the history number and the command, so the
+  # list reads "number  date  command" -- matching what `history` already shows (oh-my-zsh
+  # aliases it to `omz_history -f` via HIST_STAMPS). Swap -f for -i to get ISO
+  # (2026-08-17), which is fixed-width and keeps the command column aligned; -f is
+  # ragged by up to 2 chars (8/9/2026 vs 12/15/2026).
+  #
+  # The awk regex MUST strip the stamp as well as the number, or dedup keys on
+  # "date + command" and the same command run at two different times stops collapsing.
+  # The [0-9/:-]+ class matches either the -f or the -i stamp, so switching is one letter.
+  selected=( $(fc -rlf 1 | awk '{ cmd=$0; sub(/^[ \t]*[0-9]+\**[ \t]+[0-9/:-]+[ \t]+[0-9:]+[ \t]+/, "", cmd); if (!seen[cmd]++) print $0 }' |
     FZF_DEFAULT_OPTS="--height ${FZF_TMUX_HEIGHT:-40%} ${FZF_DEFAULT_OPTS-} -n2..,.. --scheme=history --bind=ctrl-r:toggle-sort,ctrl-z:ignore ${FZF_CTRL_R_OPTS-} --query=${(qqq)LBUFFER} +m" $(__fzfcmd)) )
   local ret=$?
   if [ -n "$selected" ]; then
