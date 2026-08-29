@@ -181,82 +181,16 @@ git clone https://github.com/HunterWare/dotfiles ~/.dotfiles
 cd ~/.dotfiles
 mv ~/.bashrc ~/.bashrc.orig
 mv ~/.zshrc ~/.zshrc.orig
-stow bash zsh shell emacs tmux vim neovim fish
-
-########## Claude Code
-##########
-# Stow package for the machine-independent half of ~/.claude: the statusline,
-# its monthly-usage helper, the timestamp hooks, and shared CLAUDE.md prose.
-# Everything stowed is $HOME-relative and safe on any box.
-
-# Pre-create the dirs BEFORE stow. If ~/.claude or ~/.claude/hooks don't
-# exist, stow folds each into a single symlink pointing into the repo --
-# Claude Code then writes .credentials.json, projects/ and history.jsonl
-# straight into git. Existing real dirs force per-file links instead.
+# mkdir dirs the app writes into, else stow folds them into the repo
+mkdir -p ~/.config/nvim
 mkdir -p ~/.claude/hooks
-cd ~/.dotfiles
-stow claude
+stow bash zsh shell emacs tmux vim neovim fish claude
 
-# settings.json and CLAUDE.md are per-machine (hook wiring, model, plugins
-# and permissions differ per box) -- deliberately not stowed. Once per box:
-cp ~/.dotfiles/claude/settings.example.json ~/.claude/settings.json    # then edit
+
+########## Post Env Setup
+##########
+
+# Claude, per box, once if desired:
+cp ~/.dotfiles/claude/settings.example.json ~/.claude/settings.json   # then edit
 printf '# Global preferences\n\n@~/.claude/CLAUDE.common.md\n' > ~/.claude/CLAUDE.md
 
-# Verify: .claude and hooks real dirs, everything else symlinked into ~/.dotfiles
-ls -ld ~/.claude ~/.claude/hooks ~/.claude/statusline.sh ~/.claude/hooks/*.sh
-
-# Requirements: bash, jq, stow
-
-# Files:
-#   .claude/statusline.sh       invoked by Claude Code per render
-#   .claude/monthly-usage.sh    background helper -- scans
-#                               ~/.claude/projects/*.jsonl, writes
-#                               ~/.claude/statusline-cache/monthly.json.
-#                               Kicked off by statusline.sh when its cache
-#                               is >5min stale.
-#   .claude/CLAUDE.common.md    shared prose; imported by each box's local
-#                               ~/.claude/CLAUDE.md via
-#                               @~/.claude/CLAUDE.common.md
-#   .claude/hooks/*.sh          timestamp reminder (UserPromptSubmit) and
-#                               stop (Stop) hooks
-#   settings.example.json       portable settings subset; copy to
-#                               ~/.claude/settings.json and extend per box.
-#                               Excluded from stow via .stow-local-ignore
-#                               (which REPLACES stow's default ignore list,
-#                               so re-add the defaults if you ever add a
-#                               README/LICENSE here)
-
-# Statusline layout:
-#   Opus 5 (1M ctx) | ctx: 42.1K (4%) | sess $1.25 mon 1.9B tok ($1892.51)
-#
-#   model   purple; "1M context" is abbreviated to "1M ctx"
-#   ctx     current context tokens (%), where current = input +
-#           cache_creation + cache_read. Cyan <50%, orange 50-79%, red >=80%
-#   sess    session cost from .cost.total_cost_usd (green). Omitted when
-#           the field is absent
-#   mon     month-to-date tokens + cost (orange), from the monthly cache;
-#           joined to sess with a plain space rather than a separator
-
-# Not stowed, and why:
-#   settings.json  hook wiring, model, plugins and permissions differ per
-#                  box -- one machine points at herdr/vault-sync hooks that
-#                  don't exist on another, with absolute paths
-#   CLAUDE.md      thin per-box stub that imports CLAUDE.common.md
-#
-#   Hook *scripts* are safe to ship everywhere: an unreferenced hook is
-#   inert, so settings.json alone decides which ones are wired up.
-
-# Monthly usage segment:
-#   monthly-usage.sh scans ~/.claude/projects/**/*.jsonl for the current
-#   month (UTC), dedupes assistant messages on message.id (resumed and
-#   forked sessions rewrite the same turns into new .jsonl files), and
-#   prices per model family from a table baked into the script. Update the
-#   rates there when Anthropic changes them. No API key required.
-#
-#   If you delete monthly-usage.sh, statusline.sh silently omits the
-#   monthly segment -- the rest of the statusline still works.
-
-# Customizing:
-#   Edit ~/.dotfiles/claude/.claude/statusline.sh -- it's the same file as
-#   ~/.claude/statusline.sh, so changes are live immediately. Colors are
-#   24-bit ANSI in the _fg helpers near the top.
