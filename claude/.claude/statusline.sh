@@ -69,7 +69,8 @@ fi
 
 fmt_k() { awk -v n="$1" 'BEGIN {
     n += 0
-    if (n >= 1000000) printf "%.1fM", n/1000000
+    if (n >= 1000000000) printf "%.1fB", n/1000000000
+    else if (n >= 1000000) printf "%.1fM", n/1000000
     else if (n >= 1000) printf "%.1fK", n/1000
     else printf "%d", n
 }'; }
