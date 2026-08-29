@@ -159,14 +159,6 @@ patch -d ~/.oh-my-zsh -p1 < ~/.dotfiles/oh-my-zsh-colored-man.diff
 ########## Setup tools
 ##########
 
-# Install tpm (tmux)
-mkdir -p ~/.config/tmux/plugins
-git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
-
-# Wire up custom dracula-winpane.sh plugin (window:pane index in status-right)
-# Run AFTER plugins have been installed in tmux (prefix-I inside a tmux session):
-ln -sfn ~/.dotfiles/dracula-winpane.sh ~/.config/tmux/plugins/tmux/scripts/dracula-winpane.sh
-
 # Install oh-my-zsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
@@ -183,8 +175,17 @@ mv ~/.bashrc ~/.bashrc.orig
 mv ~/.zshrc ~/.zshrc.orig
 # mkdir dirs the app writes into, else stow folds them into the repo
 mkdir -p ~/.config/nvim
+mkdir -p ~/.config/tmux/plugins
 mkdir -p ~/.claude/hooks
 stow bash zsh shell emacs tmux vim neovim fish claude
+
+# Install tpm (tmux). AFTER stow: needs ~/.config/tmux/tmux.conf in place, and
+# the mkdir above is what stops stow folding ~/.config/tmux into the repo.
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
+
+# Wire up custom dracula-winpane.sh plugin (window:pane index in status-right)
+# Run AFTER plugins have been installed in tmux (prefix-I inside a tmux session):
+ln -sfn ~/.dotfiles/dracula-winpane.sh ~/.config/tmux/plugins/tmux/scripts/dracula-winpane.sh
 
 
 ########## Post Env Setup
