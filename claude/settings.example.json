@@ -1,0 +1,32 @@
+{
+  "model": "opus[1m]",
+  "theme": "dark",
+  "statusLine": {
+    "type": "command",
+    "command": "bash $HOME/.claude/statusline.sh"
+  },
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $HOME/.claude/hooks/timestamp_reminder.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $HOME/.claude/hooks/timestamp_stop.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
