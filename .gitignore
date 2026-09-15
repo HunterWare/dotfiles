@@ -13,3 +13,9 @@ neovim/.config/nvim/lazyvim.json
 tmux/.config/tmux/plugins/
 fish/.config/fish/conf.d/fish_frozen_*.fish
 fish/.config/fish/conf.d/rustup.fish
+
+# fish's universal-variable store. fish rewrites it on every `set -U`, so a
+# tracked copy is permanently dirty on any box that runs fish. Plugins are
+# declared in fish_plugins (tracked); fisher regenerates the vars from that.
+# Untracked 2026-09-15; last tracked copy is in git history at 8c2383e.
+fish/.config/fish/fish_variables
