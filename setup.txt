@@ -173,11 +173,20 @@ git clone https://github.com/HunterWare/dotfiles ~/.dotfiles
 cd ~/.dotfiles
 mv ~/.bashrc ~/.bashrc.orig
 mv ~/.zshrc ~/.zshrc.orig
-# mkdir dirs the app writes into, else stow folds them into the repo
+# mkdir dirs the app writes into, else stow folds them into the repo.
+# Rule: pre-create any dir that will hold a MIX of repo files and machine-local
+# content. Single-owner dirs (~/.config/nvim/lua, fish functions/ + completions/)
+# should fold -- that is stow working as intended.
 mkdir -p ~/.config/nvim
+mkdir -p ~/.config/fish/conf.d
 mkdir -p ~/.config/tmux/plugins
 mkdir -p ~/.claude/hooks
 stow bash zsh shell emacs tmux vim neovim fish claude
+# NOTE: git and most are intentionally NOT stowed. git/.gitconfig is a TEMPLATE
+# (email is the placeholder XXX@YYY.ZZZ); ~/.gitconfig is a real per-machine file you
+# fill in by hand -- stowing it would symlink the placeholder over your real config.
+# ~/.mostrc is simply unused. Do not "fix" either by adding them to the stow line.
+# Per box: cp ~/.dotfiles/git/.gitconfig ~/.gitconfig   # then set user.email
 
 # Install tpm (tmux). AFTER stow: needs ~/.config/tmux/tmux.conf in place, and
 # the mkdir above is what stops stow folding ~/.config/tmux into the repo.

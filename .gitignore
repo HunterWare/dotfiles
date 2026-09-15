@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+
+# Machine-local runtime state. None of this should ever be inside the repo:
+# it belongs in the real ~/.config, written by the app that owns it.
+#
+# If a path below ever shows up here, a stow FOLD has reappeared -- the target
+# dir did not exist at stow time, so stow symlinked the whole package dir and
+# the app is now writing into ~/.dotfiles. Do not just ignore it; re-run the
+# fold audit in ~/Vault/Runbooks/"Stow folding in the dotfiles.md".
+neovim/.config/nvim/lazy-lock.json
+neovim/.config/nvim/lazyvim.json
+tmux/.config/tmux/plugins/
+fish/.config/fish/conf.d/fish_frozen_*.fish
+fish/.config/fish/conf.d/rustup.fish
