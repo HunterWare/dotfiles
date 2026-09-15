@@ -200,7 +200,21 @@ ln -sfn ~/.dotfiles/dracula-winpane.sh ~/.config/tmux/plugins/tmux/scripts/dracu
 ########## Post Env Setup
 ##########
 
-# Claude, per box, once if desired:
+# Claude, per box. settings.json and CLAUDE.md are NOT stowed -- they are per-box.
+#
+# WARNING: both lines below are FIRST-INSTALL ONLY. They clobber. On a box that
+# already has a settings.json (real hooks, permissions, plugins) or a CLAUDE.md
+# (machine notes, other @-imports), running them destroys that content. MERGE instead:
+#   settings.json -> keep the file; add the statusLine block and the
+#                    UserPromptSubmit + Stop timestamp hook entries from the example,
+#                    appending to any hook arrays that already exist.
+#   CLAUDE.md     -> add the single @-import line; leave the rest alone.
 cp ~/.dotfiles/claude/settings.example.json ~/.claude/settings.json   # then edit
 printf '# Global preferences\n\n@~/.claude/CLAUDE.common.md\n' > ~/.claude/CLAUDE.md
+
+# Audit an already-configured box instead of clobbering it (loki needed this 2026-09-15 --
+# it was stowed but never wired, so statusline.sh ran while the hooks sat unreferenced):
+#   jq '.statusLine' ~/.claude/settings.json
+#   jq '[.hooks.UserPromptSubmit[]?.hooks[]?.command, .hooks.Stop[]?.hooks[]?.command]' ~/.claude/settings.json
+#   grep -c 'CLAUDE.common.md' ~/.claude/CLAUDE.md
 
